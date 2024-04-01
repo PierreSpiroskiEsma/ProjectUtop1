@@ -7,7 +7,7 @@ using namespace std;
 string Interactible::get_Name() {
 
 
-	return string();
+	return name;
 }
 
 void Interactible::set_Name(string set) {
@@ -18,7 +18,7 @@ void Interactible::set_Name(string set) {
 string Interactible::get_Desctiption() {
 
 
-	return string();
+	return description;
 }
 
 void Interactible::set_Desctiption(string set) {
@@ -28,7 +28,7 @@ void Interactible::set_Desctiption(string set) {
 
 string Interactible::get_file_location() {
 
-	return string();
+	return file_location;
 }
 
 void Interactible::set_file_location(string set) {

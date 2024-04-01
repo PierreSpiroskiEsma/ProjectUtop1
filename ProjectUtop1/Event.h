@@ -5,16 +5,16 @@
 
 class Event : public Interactible
 {
-private :
+private:
 	// -------------------- Variables de la classe Event ----------------
-	bool give_Item;
+	bool give_Item = false;
 	Item Item_Reward;
 	string Item_Message, No_Item_message, Malveillance_Message;
-	bool Malveillance_Damage;
+	bool Malveillance_Damage = false;
 	bool Visited = false;
 
 
-public :
+public:
 
 	// ------------- Methodes de la classe Event ---------------
 
@@ -36,7 +36,7 @@ public :
 	bool get_Visited();
 	void set_Visited(bool visited);
 
-}
+};
 
 
 	
