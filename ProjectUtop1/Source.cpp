@@ -9,35 +9,87 @@
 
 using namespace std;
 string rien;
+int ChoixJoueurMenuPrinc;
+int ChoixJoueurMenuLoc;
+int ChoixJoueurMenuLocValidation;
 
+// **************************************************************
+// Menu Localisation
+//***************************************************************
 
-void afficher_Menu_pricipal(){
+void afficher_Menu_Inventory(Item target[]) {
 
+	int MenuChoice = 0;
+	int ItemPerLine = 0;
 	/****************************************
 
-		1.Aller		2.faire		3.Utiliser un objet
-
-	/*****************************************/
-
-
-}
-
-void afficher_Menu_Localisation() {
-
-	/****************************************
-	
 		1.ville		2.musée		3.park
-		4.metro		5.termosta	6.annuler	
-	
-	/*****************************************/
-
-
-	/****************************************
-
-		1.ville		2.musée		3.metro
-		4.annuler
+		4.metro		5.termosta	6.annuler
 
 	/*****************************************/
+
+	system("cls");
+	cout << "****************************************" << endl;
+	cout << endl;
+	for (int i = 0; i < 5; i++)
+	{
+		if (target[i].get_is_Possesd())
+		{
+			if (target[i].get_Is_Visible())
+			{
+				MenuChoice++;
+				if (ItemPerLine == 3)
+				{
+					ItemPerLine = 1;
+					
+					cout << endl;
+					cout << MenuChoice << "." << target[i].get_Name()<<"  ";
+
+
+				}
+				else
+				{
+					ItemPerLine++;
+					cout << MenuChoice << "." << target[i].get_Name() << "      ";
+
+				}
+
+			}
+
+
+
+		}
+
+		
+	};
+	cout << endl << endl;
+	cout << MenuChoice + 1 << ".Annuler";
+	cout << endl << endl;
+	cout << "*****************************************" << endl << endl;
+	cin >> ChoixJoueurMenuLoc;//garder en mémoire quel objet est séléctionné
+	cout << endl;
+	cout << "****************************************" << endl;
+	cout << "1.Valider" << "         " << "2.Annuler" << endl << endl;
+	cout << "****************************************" << endl;
+	cin >> ChoixJoueurMenuLocValidation;
+	do
+	{
+		switch (ChoixJoueurMenuLocValidation)
+		{
+		case 1:
+			
+			cout << "je valide" << endl;
+			break;
+		case 2:
+			
+			cout << "j'annule" << endl;
+			break;
+		default:
+			cout << "choix invalide";
+			break;
+		}
+
+	} while (ChoixJoueurMenuLocValidation != 1 && ChoixJoueurMenuLocValidation != 2);
 
 	/****************************************
 
@@ -46,7 +98,53 @@ void afficher_Menu_Localisation() {
 	/*****************************************/
 }
 
-void afficher_Menu_Inventory() {
+// **************************************************************
+// Menu principal
+//***************************************************************
+void afficher_Menu_pricipal(Item UseMenu[]){
+
+	system("cls");
+	cout << "****************************************" << endl;
+	cout << endl;
+	cout << "1.Aller	  2.faire	  3.Utiliser un objet" << endl;
+	cout << endl;
+	cout << "*****************************************" << endl << endl;
+	cin >> ChoixJoueurMenuPrinc;
+	cout << endl;
+	
+	do 
+	{
+		switch (ChoixJoueurMenuPrinc)
+		{
+		case 1:
+			//afficher_Menu_Localisation(UseMenu);
+			 cout << "je vais dans localisation" << endl;
+			 break;
+		case 2:
+			//afficher_Menu_Event()
+			  cout << "je vais dans Event" << endl;
+			  break;
+		case 3:
+			afficher_Menu_Inventory(UseMenu);
+			
+			  break;
+		default:
+			cout << "choix invalide";
+			break;
+		}
+
+	} while (ChoixJoueurMenuPrinc != 1 && ChoixJoueurMenuPrinc != 2 && ChoixJoueurMenuPrinc != 3);
+
+
+}
+
+
+
+// **************************************************************
+// Menu Inventaire
+//***************************************************************
+
+void afficher_Menu_Localisation() {
 
 
 	/****************************************
@@ -80,7 +178,7 @@ void AfficcherEvent(Event target)
 	
 	*********************************************/
 
-	if (target.get_Visited())
+	/*if (target.get_Visited())
 	{
 		system("cls");
 
@@ -114,10 +212,11 @@ void AfficcherEvent(Event target)
 
 		target.set_Visited(true);
 
-	}
+	}*/
 }
 
-int main() {
+int main()
+{
 
 	//initialer les objet
 
@@ -153,6 +252,14 @@ int main() {
 
 			//Revien au menue 02
 
+	
+
+
+
+// ******************************************************************************
+// set up des PNJ du jeu 
+//*******************************************************************************
+
 	Event Fou_Du_Metro;
 
 	Fou_Du_Metro.set_Name("Fou du Metro");
@@ -162,11 +269,67 @@ int main() {
 	Fou_Du_Metro.set_Malveillance_Message("Mal : Quel homme inspirant ! vous perdez un point de malveillance !");
 	Fou_Du_Metro.set_Malveillance_Damage(true);
 
-	cout << "test" << endl;
+// ******************************************************************************
+// set up des objets du jeu 
+//*******************************************************************************
 
+	Item Portefeuille;
 
-	AfficcherEvent(Fou_Du_Metro);
+	Portefeuille.set_Name("Portefeuille");
+	Portefeuille.set_Desctiption("C'est un vieux portefeuille en cuir noir");
+	Portefeuille.set_Identification_ID(1);
+	Portefeuille.set_Is_Visible(true);
+	Portefeuille.set_is_Possesd(true);
+
+	Item Telephone;
+
+	Telephone.set_Name("Telephone");
+	Telephone.set_Desctiption("Un 3310 !!!!! une vrais relique d'un anciens monde !!");
+	Telephone.set_Identification_ID(2);
+	Telephone.set_Is_Visible(true);
+	Telephone.set_is_Possesd(true);
 	
+	Item Ticket;
+
+	Ticket.set_Name("Ticket");
+	Ticket.set_Desctiption("Un ticket pour le musée du vieux monde que vous avez acheté.");
+	Ticket.set_Identification_ID(3);
+	Ticket.set_Is_Visible(true);
+	Ticket.set_is_Possesd(true);
+	
+	Item Ticket2;
+
+	Ticket2.set_Name("Ticket2");
+	Ticket2.set_Desctiption("Un ticket2 pour le musée du vieux monde que vous avez acheté.");
+	Ticket2.set_Identification_ID(5);
+	Ticket2.set_Is_Visible(true);
+	Ticket2.set_is_Possesd(true);
+
+	Item declencheur_Park;
+
+	declencheur_Park.set_Identification_ID(4);
+	declencheur_Park.set_Is_Visible(false);
+	declencheur_Park.set_is_Possesd(true);
+
+
+	Item Tableau_Item[5]
+	{
+		Portefeuille,
+		declencheur_Park,
+		Ticket,
+		Ticket2,
+		Telephone,
+	};
+
+
+	//cout << "test" << endl;
+
+
+	//AfficcherEvent(Fou_Du_Metro);
+
+	afficher_Menu_pricipal(Tableau_Item);
+
+
 	return 0;
 }
 

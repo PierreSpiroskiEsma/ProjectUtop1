@@ -26,6 +26,16 @@ void Interactible::set_Desctiption(string set) {
 	description = set;
 }
 
+int Interactible::get_Identification_ID()
+{
+	return Identification_ID;
+}
+
+void Interactible::set_Identification_ID(int Id)
+{
+	Identification_ID = Id;
+}
+
 string Interactible::get_file_location() {
 
 	return file_location;
