@@ -3,14 +3,24 @@
 
 using namespace std;
 
-
-
-/*Event Location::get_Event_List()
+bool Location::is_reacheable(int target)
 {
-	return Event_List[];
+	for (int i = 0; i < end(Location_Reach)-begin(Location_Reach); i++)
+	{
+		if (Location_Reach[i] == target) {
+			return true;
+		}
+
+		return false;
+	}
 }
 
-Event Location::set_Event_List(Event Event_In_Location[])
+bool Location::get_is_unlock()
 {
-	Event_List = Event_In_Location;
-}*/
+	return is_unlock;
+}
+
+void Location::set_is_unlock(bool unlock)
+{
+	is_unlock = unlock;
+}

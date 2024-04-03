@@ -153,7 +153,7 @@ void afficher_Menu_Inventory(Item target1[]) {
 // Menu Localisation
 //***************************************************************
 
-void afficher_Menu_Localisation(Location target2[]) {
+void afficher_Menu_Localisation(Location target2[], Location curent_location) {
 	int MenuLocChoice = 0;
 	int LocPerLine = 0;
 
@@ -162,7 +162,7 @@ void afficher_Menu_Localisation(Location target2[]) {
 	cout << endl;
 	for (int i = 0; i < 5; i++)
 	{
-		if (target2[i].get_is_unlock())
+		if (target2[i].get_is_unlock() && curent_location.is_reacheable(target2[i].get_Identification_ID()))
 		{
 			MenuLocChoice++;
 			if (LocPerLine == 3)
@@ -180,8 +180,6 @@ void afficher_Menu_Localisation(Location target2[]) {
 				cout << MenuLocChoice << "." << target2[i].get_Name() << "      ";
 
 			}
-
-
 		}
 
 
@@ -235,7 +233,7 @@ void afficher_Menu_Localisation(Location target2[]) {
 // **************************************************************
 // Menu principal
 //***************************************************************
-void afficher_Menu_pricipal(Item UseMenu[], Location GoMenu[]) {
+void afficher_Menu_pricipal(Item UseMenu[], Location GoMenu[], Location curent_location) {
 
 	system("cls");
 	cout << "****************************************" << endl;
@@ -252,7 +250,7 @@ void afficher_Menu_pricipal(Item UseMenu[], Location GoMenu[]) {
 		switch (ChoixJoueurMenuPrinc)
 		{
 		case 1:
-			afficher_Menu_Localisation(GoMenu);
+			afficher_Menu_Localisation(GoMenu, curent_location);
 		
 			 break;
 		case 2:
@@ -455,7 +453,7 @@ int main()
 
 	Salle_de_la_Bombe.set_Name("Salle_de_la_Bombe");
 	Salle_de_la_Bombe.set_Identification_ID(8);
-	Salle_de_la_Bombe.set_is_unlock(false);
+	Salle_de_la_Bombe.set_is_unlock();
 
 
 	Location Park;
@@ -465,10 +463,9 @@ int main()
 	Park.set_is_unlock(true);
 
 
-
-
-
-
+	// ******************************************************************************
+	// Remplissage des tableau d'objet
+	//*******************************************************************************
 
 	Location Tableau_Lieux[5]
 	{
@@ -489,13 +486,23 @@ int main()
 		Telephone,
 	};
 
+	Event Tableau_Event[1]
+	{
+		Fou_Du_Metro
+	};
 
-	//cout << "test" << endl;
 
+	// ******************************************************************************
+	// Declaration des variable de jeux
+	//*******************************************************************************
 
-	//AfficcherEvent(Fou_Du_Metro);
+	Location curent_location = Maison;
 
-	afficher_Menu_pricipal(Tableau_Item, Tableau_Lieux);
+	// ******************************************************************************
+	// Deroulement du jeux
+	//*******************************************************************************
+
+	afficher_Menu_pricipal(Tableau_Item, Tableau_Lieux, curent_location);
 
 
 	return 0;

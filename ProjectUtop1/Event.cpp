@@ -1,44 +1,56 @@
 #include "Event.h"
 
+using namespace std;
+
 bool Event::get_give_Item()
 {
 	return give_Item;
 }
 
-void Event::set_give_Item(bool Item_Reward)
+void Event::set_give_Item(bool Is_Item)
 {
-	give_Item = Item_Reward;
+	give_Item = Is_Item;
 
 }
 
-std::string Event::get_Item_Message()
+Item Event::get_item_Reward()
+{
+	return Item_Reward;
+}
+
+void Event::set_item_reward(Item _Item)
+{
+	Item_Reward = _Item;
+}
+
+string Event::get_Item_Message()
 {
 	return Item_Message;
 }
 
-void Event::set_Item_Message(std::string Item_Msg)
+void Event::set_Item_Message(string Item_Msg)
 {
 	Item_Message = Item_Msg;
 
 }
 
-std::string Event::get_No_Item_message()
+string Event::get_No_Item_message()
 {
 	return No_Item_message;
 }
 
-void Event::set_No_Item_message(std::string NoItem)
+void Event::set_No_Item_message(string NoItem)
 {
 	No_Item_message = NoItem;
 
 }
 
-std::string Event::get_Malveillance_Message()
+string Event::get_Malveillance_Message()
 {
 	return Malveillance_Message;
 }
 
-void Event::set_Malveillance_Message(std::string Mal)
+void Event::set_Malveillance_Message(string Mal)
 {
 
 	Malveillance_Message = Mal;
@@ -64,4 +76,26 @@ void Event::set_Visited(bool visited)
 {
 
 	Visited = visited;
+}
+
+void Event::DescriptionFromFile(string String_File_Location)
+{
+	ifstream infile(String_File_Location);
+
+	if (infile.is_open()) {
+
+		string line;
+
+		while (getline(infile, line)) {
+
+			if (line == "<->")
+			{
+				next_screen();
+
+			} else
+
+			cout << line << endl;
+
+		}
+	}
 }

@@ -13,7 +13,6 @@ class Interactible {
 		// -------------------- Variables de la classe Interactible ----------------
 		string name, description, file_location;
 		int Identification_ID;
-		bool is_unlock;
 
 	public :
 
@@ -32,11 +31,10 @@ class Interactible {
 		string get_file_location();
 		void set_file_location(string set);
 
-		void DescriptionFromFile(string String_File_Location, string* Target);
-		
-		
-		bool get_is_unlock();
-		void set_is_unlock(bool unlock);
+		void next_screen();
+
+		virtual void DescriptionFromFile(string String_File_Location, string* Target);
+
 };
 
 

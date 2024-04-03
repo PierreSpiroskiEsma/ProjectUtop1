@@ -46,6 +46,15 @@ void Interactible::set_file_location(string set) {
 	file_location = set;
 }
 
+void Interactible::next_screen()
+{
+	string Rine;
+
+	cout << "Passer a la Suite (oui/non)" << endl;
+	cin >> Rine;
+	system("cls");
+}
+
 void Interactible::DescriptionFromFile(string String_File_Location, string* Target) {
 
 	ifstream infile(String_File_Location);
@@ -62,17 +71,5 @@ void Interactible::DescriptionFromFile(string String_File_Location, string* Targ
 	}
 
 }
-
-bool Interactible::get_is_unlock()
-{
-	return is_unlock;
-}
-
-void Interactible::set_is_unlock(bool unlock)
-{
-
-	is_unlock = unlock;
-}
-
 
 
