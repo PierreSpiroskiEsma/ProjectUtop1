@@ -13,7 +13,21 @@ enum class Location_List {
 
 class Location : public Interactible{
 
+
+private :
+	// -------------------- Variables de la classe Location ----------------
+
 	//Event Event_List[];
+
+
+
+public :
+
+	// ------------- Methodes de la classe Location ---------------
+
+	//Event get_Event_List();
+	//Event set_Event_List(Event Event_In_Location[]);
+
 
 };
 

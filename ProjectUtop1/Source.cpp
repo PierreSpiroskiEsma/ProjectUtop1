@@ -79,7 +79,17 @@ void afficher_Menu_Inventory(Item target1[]) {
 	cout << MenuInvChoice + 1 << ".Annuler";
 	cout << endl << endl;
 	cout << "*****************************************" << endl << endl;
-	cin >> ChoixJoueurMenuInv;;//garder en mémoire quel objet est séléctionné
+	do
+	{
+		cin >> ChoixJoueurMenuInv;
+		if (ChoixJoueurMenuInv != 1 && ChoixJoueurMenuInv != 2 && ChoixJoueurMenuInv != 3 && ChoixJoueurMenuInv != 4 && ChoixJoueurMenuInv != 5)
+		{
+			cout << "choix invalide" << endl;
+		}
+
+	} while (ChoixJoueurMenuInv != 1 && ChoixJoueurMenuInv != 2 && ChoixJoueurMenuInv != 3 && ChoixJoueurMenuInv != 4 && ChoixJoueurMenuInv != 5);
+
+	//garder en mémoire quel objet est séléctionné
 	cout << endl;
 	cout << "****************************************" << endl;
 	cout << "1.Regarder" << "        " << "2.utiliser" << endl << "3.Annuler" << endl << endl;
@@ -146,12 +156,6 @@ void afficher_Menu_Inventory(Item target1[]) {
 void afficher_Menu_Localisation(Location target2[]) {
 	int MenuLocChoice = 0;
 	int LocPerLine = 0;
-	/****************************************
-
-		1.ville		2.musée		3.park
-		4.metro		5.termosta	6.annuler
-
-	/*****************************************/
 
 	system("cls");
 	cout << "****************************************" << endl;
@@ -181,12 +185,23 @@ void afficher_Menu_Localisation(Location target2[]) {
 		}
 
 
+
 	};
 	cout << endl << endl;
 	cout << MenuLocChoice + 1 << ".Annuler";
 	cout << endl << endl;
 	cout << "*****************************************" << endl << endl;
-	cin >> ChoixJoueurMenuLoc;
+	do 
+	{
+		cin >> ChoixJoueurMenuLoc;
+		if (ChoixJoueurMenuLoc != 1 && ChoixJoueurMenuLoc != 2 && ChoixJoueurMenuLoc != 3 && ChoixJoueurMenuLoc != 4 && ChoixJoueurMenuLoc != 5) 
+		{
+			cout << "choix invalide" << endl;
+		}
+
+	} while (ChoixJoueurMenuLoc != 1 && ChoixJoueurMenuLoc != 2 && ChoixJoueurMenuLoc != 3 && ChoixJoueurMenuLoc != 4 && ChoixJoueurMenuLoc != 5);
+
+	
 	cout << endl;
 	cout << "****************************************" << endl;
 	cout << "1.Valider" << "         " << "2.Annuler" << endl << endl;
@@ -424,6 +439,7 @@ int main()
 	Centre_Ville.set_Name("Centre_Ville");
 	Centre_Ville.set_Identification_ID(6);
 	Centre_Ville.set_is_unlock(true);
+	//Centre_Ville.set_Event_List[Fou_Du_Metro];
 
 
 
@@ -440,6 +456,7 @@ int main()
 	Salle_de_la_Bombe.set_Name("Salle_de_la_Bombe");
 	Salle_de_la_Bombe.set_Identification_ID(8);
 	Salle_de_la_Bombe.set_is_unlock(false);
+
 
 	Location Park;
 

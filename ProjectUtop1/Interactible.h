@@ -10,12 +10,14 @@ using namespace std;
 class Interactible {
 
 	private : 
-
+		// -------------------- Variables de la classe Interactible ----------------
 		string name, description, file_location;
 		int Identification_ID;
 		bool is_unlock;
 
 	public :
+
+		// ------------- Methodes de la classe Interactible ---------------
 
 		string get_Name();
 		void set_Name(string set);
