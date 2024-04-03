@@ -13,7 +13,7 @@ enum class Location_List {
 
 class Location : public Interactible{
 
-	Event Event_List[];
+	//Event Event_List[];
 
 };
 

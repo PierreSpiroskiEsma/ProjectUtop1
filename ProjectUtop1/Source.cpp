@@ -9,48 +9,61 @@
 
 using namespace std;
 string rien;
+//**********************************************
+//variables menu principal
+//**********************************************
 int ChoixJoueurMenuPrinc;
-int ChoixJoueurMenuLoc;
+
+
+//**********************************************
+//variables menu Inventaire
+//**********************************************
+int ChoixJoueurMenuInv;
+int ChoixJoueurMenuInvAction;
+int ChoixJoueurMenuInvValidation;
+
+
+//**********************************************
+//variables menu Localisation
+//**********************************************
 int ChoixJoueurMenuLocValidation;
+int ChoixJoueurMenuLoc;
+
+
+
 
 // **************************************************************
-// Menu Localisation
+// Menu Inventaire
 //***************************************************************
 
-void afficher_Menu_Inventory(Item target[]) {
+void afficher_Menu_Inventory(Item target1[]) {
 
-	int MenuChoice = 0;
+	int MenuInvChoice = 0;
 	int ItemPerLine = 0;
-	/****************************************
-
-		1.ville		2.musée		3.park
-		4.metro		5.termosta	6.annuler
-
-	/*****************************************/
 
 	system("cls");
 	cout << "****************************************" << endl;
 	cout << endl;
 	for (int i = 0; i < 5; i++)
 	{
-		if (target[i].get_is_Possesd())
+		if (target1[i].get_is_Possesd())
 		{
-			if (target[i].get_Is_Visible())
+			if (target1[i].get_Is_Visible())
 			{
-				MenuChoice++;
+				MenuInvChoice++;
 				if (ItemPerLine == 3)
 				{
 					ItemPerLine = 1;
 					
 					cout << endl;
-					cout << MenuChoice << "." << target[i].get_Name()<<"  ";
+					cout << MenuInvChoice << "." << target1[i].get_Name()<<"  ";
 
 
 				}
 				else
 				{
 					ItemPerLine++;
-					cout << MenuChoice << "." << target[i].get_Name() << "      ";
+					cout << MenuInvChoice << "." << target1[i].get_Name() << "      ";
 
 				}
 
@@ -63,18 +76,47 @@ void afficher_Menu_Inventory(Item target[]) {
 		
 	};
 	cout << endl << endl;
-	cout << MenuChoice + 1 << ".Annuler";
+	cout << MenuInvChoice + 1 << ".Annuler";
 	cout << endl << endl;
 	cout << "*****************************************" << endl << endl;
-	cin >> ChoixJoueurMenuLoc;//garder en mémoire quel objet est séléctionné
+	cin >> ChoixJoueurMenuInv;;//garder en mémoire quel objet est séléctionné
+	cout << endl;
+	cout << "****************************************" << endl;
+	cout << "1.Regarder" << "        " << "2.utiliser" << endl << "3.Annuler" << endl << endl;
+	cout << "****************************************" << endl;
+	do
+	{
+		cin >> ChoixJoueurMenuInvAction;
+
+		switch (ChoixJoueurMenuInvAction)
+		{
+		case 1:
+
+			cout << "je regarde" << endl;
+			break;
+		case 2:
+
+			cout << "J'utilise" << endl;
+			break;
+		case 3:
+			cout << "j'annule" << endl;
+			break;
+		default:
+			cout << "choix invalide"<<endl;
+			
+			break;
+		}
+
+	} while (ChoixJoueurMenuInvAction != 1 && ChoixJoueurMenuInvAction != 2 && ChoixJoueurMenuInvAction != 3);
+
 	cout << endl;
 	cout << "****************************************" << endl;
 	cout << "1.Valider" << "         " << "2.Annuler" << endl << endl;
 	cout << "****************************************" << endl;
-	cin >> ChoixJoueurMenuLocValidation;
 	do
 	{
-		switch (ChoixJoueurMenuLocValidation)
+		cin >> ChoixJoueurMenuInvValidation;
+		switch (ChoixJoueurMenuInvValidation)
 		{
 		case 1:
 			
@@ -85,23 +127,100 @@ void afficher_Menu_Inventory(Item target[]) {
 			cout << "j'annule" << endl;
 			break;
 		default:
-			cout << "choix invalide";
+			cout << "choix invalide"<<endl;
+
+			break;
+		}
+
+	} while (ChoixJoueurMenuInvValidation != 1 && ChoixJoueurMenuInvValidation != 2);
+
+
+}
+
+
+
+// **************************************************************
+// Menu Localisation
+//***************************************************************
+
+void afficher_Menu_Localisation(Location target2[]) {
+	int MenuLocChoice = 0;
+	int LocPerLine = 0;
+	/****************************************
+
+		1.ville		2.musée		3.park
+		4.metro		5.termosta	6.annuler
+
+	/*****************************************/
+
+	system("cls");
+	cout << "****************************************" << endl;
+	cout << endl;
+	for (int i = 0; i < 5; i++)
+	{
+		if (target2[i].get_is_unlock())
+		{
+			MenuLocChoice++;
+			if (LocPerLine == 3)
+			{
+				LocPerLine = 1;
+
+				cout << endl;
+				cout << MenuLocChoice << "." << target2[i].get_Name() << "  ";
+
+
+			}
+			else
+			{
+				LocPerLine++;
+				cout << MenuLocChoice << "." << target2[i].get_Name() << "      ";
+
+			}
+
+
+		}
+
+
+	};
+	cout << endl << endl;
+	cout << MenuLocChoice + 1 << ".Annuler";
+	cout << endl << endl;
+	cout << "*****************************************" << endl << endl;
+	cin >> ChoixJoueurMenuLoc;
+	cout << endl;
+	cout << "****************************************" << endl;
+	cout << "1.Valider" << "         " << "2.Annuler" << endl << endl;
+	cout << "****************************************" << endl;
+	do
+	{
+		cin >> ChoixJoueurMenuLocValidation;
+		switch (ChoixJoueurMenuLocValidation)
+		{
+		case 1:
+
+			cout << "je valide" << endl;
+			break;
+		case 2:
+
+			cout << "j'annule" << endl;
+			break;
+		default:
+			cout << "choix invalide"<<endl;
+
 			break;
 		}
 
 	} while (ChoixJoueurMenuLocValidation != 1 && ChoixJoueurMenuLocValidation != 2);
 
-	/****************************************
 
-		1.validée 	2.annuler
 
-	/*****************************************/
 }
+
 
 // **************************************************************
 // Menu principal
 //***************************************************************
-void afficher_Menu_pricipal(Item UseMenu[]){
+void afficher_Menu_pricipal(Item UseMenu[], Location GoMenu[]) {
 
 	system("cls");
 	cout << "****************************************" << endl;
@@ -109,16 +228,17 @@ void afficher_Menu_pricipal(Item UseMenu[]){
 	cout << "1.Aller	  2.faire	  3.Utiliser un objet" << endl;
 	cout << endl;
 	cout << "*****************************************" << endl << endl;
-	cin >> ChoixJoueurMenuPrinc;
 	cout << endl;
 	
 	do 
 	{
+		cin >> ChoixJoueurMenuPrinc;
+
 		switch (ChoixJoueurMenuPrinc)
 		{
 		case 1:
-			//afficher_Menu_Localisation(UseMenu);
-			 cout << "je vais dans localisation" << endl;
+			afficher_Menu_Localisation(GoMenu);
+		
 			 break;
 		case 2:
 			//afficher_Menu_Event()
@@ -129,7 +249,7 @@ void afficher_Menu_pricipal(Item UseMenu[]){
 			
 			  break;
 		default:
-			cout << "choix invalide";
+			cout << "choix invalide"<<endl;
 			break;
 		}
 
@@ -138,30 +258,6 @@ void afficher_Menu_pricipal(Item UseMenu[]){
 
 }
 
-
-
-// **************************************************************
-// Menu Inventaire
-//***************************************************************
-
-void afficher_Menu_Localisation() {
-
-
-	/****************************************
-
-		1.livre		2.code nucleaire	3.telephone
-		4.pass metro	6.annuler
-
-	/*****************************************/
-
-	/****************************************
-
-		1.Regarder		2.utiliser		3.annuler			
-
-	/*****************************************/
-
-
-}
 
 
 void AfficcherEvent(Event target)
@@ -257,7 +353,7 @@ int main()
 
 
 // ******************************************************************************
-// set up des PNJ du jeu 
+// set up des Event du jeu 
 //*******************************************************************************
 
 	Event Fou_Du_Metro;
@@ -311,6 +407,61 @@ int main()
 	declencheur_Park.set_Is_Visible(false);
 	declencheur_Park.set_is_Possesd(true);
 
+	// ******************************************************************************
+	// set up des Lieux du jeu 
+	//*******************************************************************************
+
+	Location Maison;
+
+	Maison.set_Name("Maison");
+	Maison.set_Identification_ID(9);
+	Maison.set_is_unlock(true);
+
+
+
+	Location Centre_Ville;
+
+	Centre_Ville.set_Name("Centre_Ville");
+	Centre_Ville.set_Identification_ID(6);
+	Centre_Ville.set_is_unlock(true);
+
+
+
+	Location Musee;
+
+	Musee.set_Name("Musee");
+	Musee.set_Identification_ID(7);
+	Musee.set_is_unlock(true);
+
+
+
+	Location Salle_de_la_Bombe;
+
+	Salle_de_la_Bombe.set_Name("Salle_de_la_Bombe");
+	Salle_de_la_Bombe.set_Identification_ID(8);
+	Salle_de_la_Bombe.set_is_unlock(false);
+
+	Location Park;
+
+	Park.set_Name("Park");
+	Park.set_Identification_ID(9);
+	Park.set_is_unlock(true);
+
+
+
+
+
+
+
+	Location Tableau_Lieux[5]
+	{
+		Maison,
+		Centre_Ville,
+		Musee,
+		Salle_de_la_Bombe,
+		Park,
+
+	};
 
 	Item Tableau_Item[5]
 	{
@@ -327,7 +478,7 @@ int main()
 
 	//AfficcherEvent(Fou_Du_Metro);
 
-	afficher_Menu_pricipal(Tableau_Item);
+	afficher_Menu_pricipal(Tableau_Item, Tableau_Lieux);
 
 
 	return 0;

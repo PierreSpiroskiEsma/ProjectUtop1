@@ -63,3 +63,16 @@ void Interactible::DescriptionFromFile(string String_File_Location, string* Targ
 
 }
 
+bool Interactible::get_is_unlock()
+{
+	return is_unlock;
+}
+
+void Interactible::set_is_unlock(bool unlock)
+{
+
+	is_unlock = unlock;
+}
+
+
+

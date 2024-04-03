@@ -31,6 +31,10 @@ class Interactible {
 		void set_file_location(string set);
 
 		void DescriptionFromFile(string String_File_Location, string* Target);
+		
+		
+		bool get_is_unlock();
+		void set_is_unlock(bool unlock);
 };
 
 
