@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector> 
 #include "Event.h"
 #include "Interactible.h"
 #include "Inventory.h"
@@ -8,6 +9,7 @@
 #include "Location.h"
 
 using namespace std;
+
 string rien;
 //**********************************************
 //variables menu principal
@@ -18,37 +20,37 @@ int ChoixJoueurMenuPrinc;
 //**********************************************
 //variables menu Inventaire
 //**********************************************
-int ChoixJoueurMenuInv;
+
+int Choix_Joueur_Menu_Inventory;
 int ChoixJoueurMenuInvAction;
 int ChoixJoueurMenuInvValidation;
-
 
 //**********************************************
 //variables menu Localisation
 //**********************************************
+
 int ChoixJoueurMenuLocValidation;
 int ChoixJoueurMenuLoc;
-
-
-
 
 // **************************************************************
 // Menu Inventaire
 //***************************************************************
 
-void afficher_Menu_Inventory(Item target1[]) {
+bool afficher_Menu_Inventory(vector <Item> target) {
 
 	int MenuInvChoice = 0;
 	int ItemPerLine = 0;
+	vector <Item> Item_Menu_list;
 
 	system("cls");
 	cout << "****************************************" << endl;
 	cout << endl;
-	for (int i = 0; i < 5; i++)
+
+	for (int i = 0; i < target.size(); i++)
 	{
-		if (target1[i].get_is_Possesd())
+		if (target[i].get_is_Possesd())
 		{
-			if (target1[i].get_Is_Visible())
+			if (target[i].get_Is_Visible())
 			{
 				MenuInvChoice++;
 				if (ItemPerLine == 3)
@@ -56,93 +58,105 @@ void afficher_Menu_Inventory(Item target1[]) {
 					ItemPerLine = 1;
 					
 					cout << endl;
-					cout << MenuInvChoice << "." << target1[i].get_Name()<<"  ";
+					cout << MenuInvChoice << "." << target[i].get_Name()<<"  ";
 
 
 				}
 				else
 				{
 					ItemPerLine++;
-					cout << MenuInvChoice << "." << target1[i].get_Name() << "      ";
+					cout << MenuInvChoice << "." << target[i].get_Name() << "      ";
 
 				}
 
+				Item_Menu_list.push_back(target[i]);
 			}
-
-
-
-		}
-
-		
+		}		
 	};
+
 	cout << endl << endl;
 	cout << MenuInvChoice + 1 << ".Annuler";
 	cout << endl << endl;
 	cout << "*****************************************" << endl << endl;
+
+
 	do
 	{
-		cin >> ChoixJoueurMenuInv;
-		if (ChoixJoueurMenuInv != 1 && ChoixJoueurMenuInv != 2 && ChoixJoueurMenuInv != 3 && ChoixJoueurMenuInv != 4 && ChoixJoueurMenuInv != 5)
-		{
+		cin >> Choix_Joueur_Menu_Inventory;
+
+		if (Choix_Joueur_Menu_Inventory < 1 || Choix_Joueur_Menu_Inventory > Item_Menu_list.size()+2) {
+
 			cout << "choix invalide" << endl;
+
+		} else if (Choix_Joueur_Menu_Inventory == Item_Menu_list.size() + 1) {
+
+			return false;
 		}
 
-	} while (ChoixJoueurMenuInv != 1 && ChoixJoueurMenuInv != 2 && ChoixJoueurMenuInv != 3 && ChoixJoueurMenuInv != 4 && ChoixJoueurMenuInv != 5);
+	} while (Choix_Joueur_Menu_Inventory < 1 || Choix_Joueur_Menu_Inventory > Item_Menu_list.size() + 2);
 
-	//garder en mémoire quel objet est séléctionné
+	Item Curently_Use_Item = Item_Menu_list[Choix_Joueur_Menu_Inventory - 1];
+	cout << Curently_Use_Item.get_Name();
+
 	cout << endl;
 	cout << "****************************************" << endl;
 	cout << "1.Regarder" << "        " << "2.utiliser" << endl << "3.Annuler" << endl << endl;
 	cout << "****************************************" << endl;
-	do
-	{
+
+
+	do {
 		cin >> ChoixJoueurMenuInvAction;
 
-		switch (ChoixJoueurMenuInvAction)
-		{
-		case 1:
+		switch (ChoixJoueurMenuInvAction) {
 
-			cout << "je regarde" << endl;
+			case 1:
+				cout << "je regarde" << endl;
+				Curently_Use_Item.Show_Description();
 			break;
-		case 2:
 
-			cout << "J'utilise" << endl;
+			case 2:
+				cout << "J'utilise" << endl;
+				Curently_Use_Item.Use_Item();
 			break;
-		case 3:
-			cout << "j'annule" << endl;
+
+			case 3:
+				cout << "j'annule" << endl;
+				return false;
 			break;
-		default:
-			cout << "choix invalide"<<endl;
-			
+
+			default:
+				cout << "choix invalide"<<endl;
 			break;
 		}
 
-	} while (ChoixJoueurMenuInvAction != 1 && ChoixJoueurMenuInvAction != 2 && ChoixJoueurMenuInvAction != 3);
+	} while (ChoixJoueurMenuInvAction < 1 || ChoixJoueurMenuInvAction > 3);
 
-	cout << endl;
-	cout << "****************************************" << endl;
-	cout << "1.Valider" << "         " << "2.Annuler" << endl << endl;
-	cout << "****************************************" << endl;
-	do
-	{
-		cin >> ChoixJoueurMenuInvValidation;
-		switch (ChoixJoueurMenuInvValidation)
-		{
-		case 1:
-			
-			cout << "je valide" << endl;
-			break;
-		case 2:
-			
-			cout << "j'annule" << endl;
-			break;
-		default:
-			cout << "choix invalide"<<endl;
+	return false;
 
-			break;
-		}
+	//cout << endl;
+	//cout << "****************************************" << endl;
+	//cout << "1.Valider" << "         " << "2.Annuler" << endl << endl;
+	//cout << "****************************************" << endl;
+	//do
+	//{
+	//	cin >> ChoixJoueurMenuInvValidation;
+	//	switch (ChoixJoueurMenuInvValidation)
+	//	{
+	//	case 1:
+	//		
+	//		cout << "je valide" << endl;
+	//		break;
+	//	case 2:
+	//		
+	//		cout << "j'annule" << endl;
+	//		break;
+	//	default:
+	//		cout << "choix invalide"<<endl;
 
-	} while (ChoixJoueurMenuInvValidation != 1 && ChoixJoueurMenuInvValidation != 2);
+	//		break;
+	//	}
+
+	//} while (ChoixJoueurMenuInvValidation != 1 && ChoixJoueurMenuInvValidation != 2);
 
 
 }
@@ -153,7 +167,7 @@ void afficher_Menu_Inventory(Item target1[]) {
 // Menu Localisation
 //***************************************************************
 
-void afficher_Menu_Localisation(Location target2[], Location curent_location) {
+void afficher_Menu_Localisation(vector <Location> target, Location curent_location) {
 	int MenuLocChoice = 0;
 	int LocPerLine = 0;
 
@@ -162,7 +176,7 @@ void afficher_Menu_Localisation(Location target2[], Location curent_location) {
 	cout << endl;
 	for (int i = 0; i < 5; i++)
 	{
-		if (target2[i].get_is_unlock() && curent_location.is_reacheable(target2[i].get_Identification_ID()))
+		if ( curent_location.is_reacheable(target[i].get_Identification_ID()))
 		{
 			MenuLocChoice++;
 			if (LocPerLine == 3)
@@ -170,14 +184,14 @@ void afficher_Menu_Localisation(Location target2[], Location curent_location) {
 				LocPerLine = 1;
 
 				cout << endl;
-				cout << MenuLocChoice << "." << target2[i].get_Name() << "  ";
+				cout << MenuLocChoice << "." << target[i].get_Name() << "  ";
 
 
 			}
 			else
 			{
 				LocPerLine++;
-				cout << MenuLocChoice << "." << target2[i].get_Name() << "      ";
+				cout << MenuLocChoice << "." << target[i].get_Name() << "      ";
 
 			}
 		}
@@ -233,7 +247,7 @@ void afficher_Menu_Localisation(Location target2[], Location curent_location) {
 // **************************************************************
 // Menu principal
 //***************************************************************
-void afficher_Menu_pricipal(Item UseMenu[], Location GoMenu[], Location curent_location) {
+bool afficher_Menu_pricipal(vector <Item> UseMenu, vector <Location> GoMenu, Location curent_location) {
 
 	system("cls");
 	cout << "****************************************" << endl;
@@ -242,8 +256,8 @@ void afficher_Menu_pricipal(Item UseMenu[], Location GoMenu[], Location curent_l
 	cout << endl;
 	cout << "*****************************************" << endl << endl;
 	cout << endl;
-	
-	do 
+
+	do
 	{
 		cin >> ChoixJoueurMenuPrinc;
 
@@ -251,18 +265,18 @@ void afficher_Menu_pricipal(Item UseMenu[], Location GoMenu[], Location curent_l
 		{
 		case 1:
 			afficher_Menu_Localisation(GoMenu, curent_location);
-		
-			 break;
+
+			break;
 		case 2:
 			//afficher_Menu_Event()
-			  cout << "je vais dans Event" << endl;
-			  break;
+			cout << "je vais dans Event" << endl;
+			break;
 		case 3:
-			afficher_Menu_Inventory(UseMenu);
-			
-			  break;
+			return afficher_Menu_Inventory(UseMenu);
+
+			break;
 		default:
-			cout << "choix invalide"<<endl;
+			cout << "choix invalide" << endl;
 			break;
 		}
 
@@ -386,6 +400,7 @@ int main()
 
 	Portefeuille.set_Name("Portefeuille");
 	Portefeuille.set_Desctiption("C'est un vieux portefeuille en cuir noir");
+	Portefeuille.set_file_location("Ressource_Text/txt_Portefeuille_Description.txt");
 	Portefeuille.set_Identification_ID(1);
 	Portefeuille.set_Is_Visible(true);
 	Portefeuille.set_is_Possesd(true);
@@ -428,7 +443,6 @@ int main()
 
 	Maison.set_Name("Maison");
 	Maison.set_Identification_ID(9);
-	Maison.set_is_unlock(true);
 
 
 
@@ -436,7 +450,6 @@ int main()
 
 	Centre_Ville.set_Name("Centre_Ville");
 	Centre_Ville.set_Identification_ID(6);
-	Centre_Ville.set_is_unlock(true);
 	//Centre_Ville.set_Event_List[Fou_Du_Metro];
 
 
@@ -445,7 +458,6 @@ int main()
 
 	Musee.set_Name("Musee");
 	Musee.set_Identification_ID(7);
-	Musee.set_is_unlock(true);
 
 
 
@@ -453,21 +465,19 @@ int main()
 
 	Salle_de_la_Bombe.set_Name("Salle_de_la_Bombe");
 	Salle_de_la_Bombe.set_Identification_ID(8);
-	Salle_de_la_Bombe.set_is_unlock();
 
 
 	Location Park;
 
 	Park.set_Name("Park");
 	Park.set_Identification_ID(9);
-	Park.set_is_unlock(true);
 
 
 	// ******************************************************************************
 	// Remplissage des tableau d'objet
 	//*******************************************************************************
 
-	Location Tableau_Lieux[5]
+	vector <Location> Tableau_Lieux
 	{
 		Maison,
 		Centre_Ville,
@@ -477,7 +487,7 @@ int main()
 
 	};
 
-	Item Tableau_Item[5]
+	vector <Item> Tableau_Item
 	{
 		Portefeuille,
 		declencheur_Park,
@@ -486,7 +496,7 @@ int main()
 		Telephone,
 	};
 
-	Event Tableau_Event[1]
+	vector <Event> Tableau_Event
 	{
 		Fou_Du_Metro
 	};
@@ -502,7 +512,11 @@ int main()
 	// Deroulement du jeux
 	//*******************************************************************************
 
-	afficher_Menu_pricipal(Tableau_Item, Tableau_Lieux, curent_location);
+	bool inifinito_le_menu = afficher_Menu_pricipal(Tableau_Item, Tableau_Lieux, curent_location);
+
+	while (!inifinito_le_menu) {
+		inifinito_le_menu = afficher_Menu_pricipal(Tableau_Item, Tableau_Lieux, curent_location);
+	}
 
 
 	return 0;

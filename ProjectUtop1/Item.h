@@ -21,5 +21,11 @@ public :
 	bool get_is_Possesd();
 	void set_is_Possesd(bool possess);
 
+	void DescriptionFromFile(string String_File_Location);
+
+	void Show_Description();
+
+	void Use_Item();
+
 };
 

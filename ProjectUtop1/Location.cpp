@@ -5,9 +5,9 @@ using namespace std;
 
 bool Location::is_reacheable(int target)
 {
-	for (int i = 0; i < end(Location_Reach)-begin(Location_Reach); i++)
+	for (int i = 0; i < Reacheable_Location.size(); i++)
 	{
-		if (Location_Reach[i] == target) {
+		if (Reacheable_Location[i] == target) {
 			return true;
 		}
 
@@ -15,12 +15,13 @@ bool Location::is_reacheable(int target)
 	}
 }
 
-bool Location::get_is_unlock()
+void Location::Add_Reacheable_Location(int set)
 {
-	return is_unlock;
+	Reacheable_Location.push_back(set);
 }
 
-void Location::set_is_unlock(bool unlock)
+void Location::clear_reacheable_location()
 {
-	is_unlock = unlock;
+	Reacheable_Location.clear();
 }
+

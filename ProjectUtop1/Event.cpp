@@ -88,12 +88,6 @@ void Event::DescriptionFromFile(string String_File_Location)
 
 		while (getline(infile, line)) {
 
-			if (line == "<->")
-			{
-				next_screen();
-
-			} else
-
 			cout << line << endl;
 
 		}

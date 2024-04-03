@@ -1,6 +1,7 @@
 #pragma once
 #include "Interactible.h"
-#include<array> 
+#include<array>
+#include<vector> 
 #include "Event.h"
 
 using namespace std;
@@ -18,10 +19,7 @@ private :
 	// -------------------- Variables de la classe Location ----------------
 
 	bool is_unlock;
-	int Location_Reach[2]{
-		6,
-		9
-	};
+	vector <int> Reacheable_Location;
 
 public :
 
@@ -30,7 +28,7 @@ public :
 
 	bool is_reacheable(int target);
 
-	bool get_is_unlock();
-	void set_is_unlock(bool unlock);
+	void Add_Reacheable_Location(int set);
+	void clear_reacheable_location();
 };
 
