@@ -1,9 +1,5 @@
 #include "Item.h"
 
-
-
-
-
 bool Item::get_Is_Visible()
 {
 	return Is_Visible;

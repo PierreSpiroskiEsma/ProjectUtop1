@@ -167,14 +167,14 @@ bool afficher_Menu_Inventory(vector <Item> target) {
 // Menu Localisation
 //***************************************************************
 
-void afficher_Menu_Localisation(vector <Location> target, Location curent_location) {
+bool afficher_Menu_Localisation(vector <Location> target, Location* _curent_location, Location curent_location) {
 	int MenuLocChoice = 0;
 	int LocPerLine = 0;
 
 	system("cls");
 	cout << "****************************************" << endl;
 	cout << endl;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < target.size(); i++)
 	{
 		if ( curent_location.is_reacheable(target[i].get_Identification_ID()))
 		{
@@ -225,15 +225,17 @@ void afficher_Menu_Localisation(vector <Location> target, Location curent_locati
 		{
 		case 1:
 
-			cout << "je valide" << endl;
-			break;
+			cout << "mouve to " << target[ChoixJoueurMenuLoc].get_Name() << endl;
+			*_curent_location = target[ChoixJoueurMenuLoc];
+			return false;
+
 		case 2:
 
 			cout << "j'annule" << endl;
-			break;
+			return false;
+
 		default:
 			cout << "choix invalide"<<endl;
-
 			break;
 		}
 
@@ -247,9 +249,10 @@ void afficher_Menu_Localisation(vector <Location> target, Location curent_locati
 // **************************************************************
 // Menu principal
 //***************************************************************
-bool afficher_Menu_pricipal(vector <Item> UseMenu, vector <Location> GoMenu, Location curent_location) {
+bool afficher_Menu_pricipal(vector <Item> UseMenu, vector <Location> GoMenu, Location* _curent_location, Location curent_location) {
 
 	system("cls");
+	cout << curent_location.get_Name() << endl;
 	cout << "****************************************" << endl;
 	cout << endl;
 	cout << "1.Aller	  2.faire	  3.Utiliser un objet" << endl;
@@ -264,17 +267,17 @@ bool afficher_Menu_pricipal(vector <Item> UseMenu, vector <Location> GoMenu, Loc
 		switch (ChoixJoueurMenuPrinc)
 		{
 		case 1:
-			afficher_Menu_Localisation(GoMenu, curent_location);
 
-			break;
+			return afficher_Menu_Localisation(GoMenu, _curent_location, curent_location);
+
 		case 2:
 			//afficher_Menu_Event()
 			cout << "je vais dans Event" << endl;
 			break;
 		case 3:
+
 			return afficher_Menu_Inventory(UseMenu);
 
-			break;
 		default:
 			cout << "choix invalide" << endl;
 			break;
@@ -443,7 +446,10 @@ int main()
 
 	Maison.set_Name("Maison");
 	Maison.set_Identification_ID(9);
-
+	Maison.Add_Reacheable_Location(6);
+	Maison.Add_Reacheable_Location(7);
+	Maison.Add_Reacheable_Location(8);
+	Maison.Add_Reacheable_Location(9);
 
 
 	Location Centre_Ville;
@@ -512,10 +518,10 @@ int main()
 	// Deroulement du jeux
 	//*******************************************************************************
 
-	bool inifinito_le_menu = afficher_Menu_pricipal(Tableau_Item, Tableau_Lieux, curent_location);
+	bool inifinito_le_menu = afficher_Menu_pricipal(Tableau_Item, Tableau_Lieux, &curent_location, curent_location);
 
 	while (!inifinito_le_menu) {
-		inifinito_le_menu = afficher_Menu_pricipal(Tableau_Item, Tableau_Lieux, curent_location);
+		inifinito_le_menu = afficher_Menu_pricipal(Tableau_Item, Tableau_Lieux, &curent_location, curent_location);
 	}
 
 
