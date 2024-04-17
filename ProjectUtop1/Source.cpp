@@ -149,7 +149,7 @@ bool afficher_Menu_Inventory(vector <Item> target) {
 // Menu Localisation
 //***************************************************************
 
-bool afficher_Menu_Localisation(vector <Location> target, Location* _curent_location, Location curent_location) {
+bool afficher_Menu_Localisation(vector <Location> target, Location* _curent_location) {
 	int MenuLocChoice = 0;
 	int LocPerLine = 0;
 	vector <Location> Location_Menu_list;
@@ -159,7 +159,7 @@ bool afficher_Menu_Localisation(vector <Location> target, Location* _curent_loca
 	cout << endl;
 	for (int i = 0; i < target.size(); i++)
 	{
-		if ( curent_location.is_reacheable(target[i].get_Identification_ID()))
+		if (_curent_location->is_reacheable(target[i].get_Identification_ID()))
 		{
 			MenuLocChoice++;
 			if (LocPerLine == 3)
@@ -243,18 +243,16 @@ bool afficher_Menu_Localisation(vector <Location> target, Location* _curent_loca
 // 
 //******************************************************************
 
-bool AfficherEvent(Location CurrentLocation)
+bool AfficherEvent(Location* CurrentLocation)
 {
 	//cout << 0 << "." << CurrentLocation.get_Event_List()[0].get_Name() << "      ";
 	int MenuEventChoice = 0;
 	int EventPerLine = 0;
-	Event CurrentEvent;
-	
 
 	system("cls");
 	cout << "****************************************" << endl;
 	cout << endl;
-	for (int i = 0; i < CurrentLocation.get_Event_List().size(); i++)
+	for (int i = 0; i < CurrentLocation->get_Event_List().size(); i++)
 	{
 		
 		if (EventPerLine == 3)
@@ -262,14 +260,14 @@ bool AfficherEvent(Location CurrentLocation)
 			EventPerLine = 1;
 
 			cout << endl;
-			cout << i+1 << "." << CurrentLocation.get_Event_List()[i].get_Name() << "  ";
+			cout << i+1 << "." << CurrentLocation->get_Event_List()[i].get_Name() << "  ";
 
 
 		}
 		else
 		{
 			EventPerLine++;
-			cout << i+1 << "." << CurrentLocation.get_Event_List()[i].get_Name() << "      ";
+			cout << i+1 << "." << CurrentLocation->get_Event_List()[i].get_Name() << "      ";
 
 		}
 		
@@ -277,26 +275,26 @@ bool AfficherEvent(Location CurrentLocation)
 	}
 
 	cout << endl << endl;
-	cout << CurrentLocation.get_Event_List().size() + 1 << ".Annuler";
+	cout << CurrentLocation->get_Event_List().size() + 1 << ".Annuler";
 	cout << endl << endl;
 	cout << "*****************************************" << endl << endl;
 	
 	do
 	{
 		cin >> ChoixJoueurMenuEvent;
-		if (ChoixJoueurMenuEvent < 1 || ChoixJoueurMenuEvent > CurrentLocation.get_Event_List().size() + 2)
+		if (ChoixJoueurMenuEvent < 1 || ChoixJoueurMenuEvent > CurrentLocation->get_Event_List().size() + 2)
 		{
 			cout << "choix invalide" << endl;
 		}
-		else if (ChoixJoueurMenuEvent == CurrentLocation.get_Event_List().size() + 1)
+		else if (ChoixJoueurMenuEvent == CurrentLocation->get_Event_List().size() + 1)
 		{
 			return false;
 
 		}
 
-	} while (ChoixJoueurMenuEvent < 1 || ChoixJoueurMenuEvent > CurrentLocation.get_Event_List().size() + 2);
+	} while (ChoixJoueurMenuEvent < 1 || ChoixJoueurMenuEvent > CurrentLocation->get_Event_List().size() + 2);
 	
-	CurrentEvent = CurrentLocation.get_Event_List()[ChoixJoueurMenuEvent - 1];
+	Event CurrentEvent = CurrentLocation->get_Event_List()[ChoixJoueurMenuEvent - 1];
 	
 	 CurrentEvent.DescriptionFromFile(CurrentEvent.get_image_location());
 	
@@ -311,13 +309,16 @@ bool AfficherEvent(Location CurrentLocation)
 	else
 	{
 
-		CurrentEvent.DescriptionFromFile(CurrentEvent.get_Desctiption());
+		CurrentEvent.DescriptionFromFile(CurrentEvent.get_file_location());
 		if (CurrentEvent.get_give_Item()) 
 		{
-			CurrentEvent.get_item_Reward().set_is_Possesd(true);
+			CurrentLocation->get_Event_List()[ChoixJoueurMenuEvent - 1].get_item_Reward().set_is_Possesd(true);
+			CurrentLocation->get_Event_List()[ChoixJoueurMenuEvent - 1].set_Visited(true);
 		}
 
 	}
+
+	CurrentEvent.next_screen();
 	return false;
 
 	
@@ -349,10 +350,10 @@ bool afficher_Menu_pricipal(vector <Item> UseMenu, vector <Location> GoMenu, Loc
 		{
 		case 1:
 
-			return afficher_Menu_Localisation(GoMenu, _curent_location, curent_location);
+			return afficher_Menu_Localisation(GoMenu, _curent_location);
 
 		case 2:
-			return AfficherEvent(curent_location);
+			return AfficherEvent(_curent_location);
 			
 		case 3:
 

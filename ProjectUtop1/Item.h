@@ -18,7 +18,7 @@ public :
 	bool get_Is_Visible();
 	void set_Is_Visible(bool visible);
 
-	bool get_is_Possesd();
+	bool* get_is_Possesd();
 	void set_is_Possesd(bool possess);
 
 	void DescriptionFromFile(string String_File_Location);
