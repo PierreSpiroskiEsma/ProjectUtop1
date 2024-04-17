@@ -11,7 +11,7 @@ private:
 	// -------------------- Variables de la classe Event ----------------
 	bool give_Item = false;
 	Item Item_Reward;
-	string Item_Message, No_Item_message, Malveillance_Message;
+	string Item_Message, No_Item_message, Malveillance_Message, AllReadyTalk_location;
 	bool Malveillance_Damage = false;
 	bool Visited = false;
 
@@ -27,13 +27,16 @@ public:
 	void set_item_reward(Item _Item);
 
 	string get_Item_Message();
-	void set_Item_Message(std::string Item_Msg);
+	void set_Item_Message(string Item_Msg);
 
 	string get_No_Item_message();
-	void set_No_Item_message(std::string NoItem);
+	void set_No_Item_message(string NoItem);
 
 	string get_Malveillance_Message();
-	void set_Malveillance_Message(std::string Mal);
+	void set_Malveillance_Message(string Mal);
+
+	string get_AllReadyTalk_location();
+	void set_AllReadyTalk_location(string set);
 
 	bool get_Malveillance_Damage();
 	void set_Malveillance_Damage(bool Mal_Dmg);

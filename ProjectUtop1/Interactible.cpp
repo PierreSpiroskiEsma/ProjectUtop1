@@ -46,6 +46,16 @@ void Interactible::set_file_location(string set) {
 	file_location = set;
 }
 
+string Interactible::get_image_location() {
+
+	return image_location;
+}
+
+void Interactible::set_image_location(string set) {
+
+	image_location = set;
+}
+
 void Interactible::next_screen()
 {
 	string Rine;

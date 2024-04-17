@@ -25,3 +25,13 @@ void Location::clear_reacheable_location()
 	Reacheable_Location.clear();
 }
 
+void Location::Add_Event(Event set)
+{
+	Event_List.push_back(set);
+}
+
+void Location::clear_Event_List()
+{
+	Event_List.clear();
+}
+

@@ -20,6 +20,7 @@ private :
 
 	bool is_unlock;
 	vector <int> Reacheable_Location;
+	vector <Event> Event_List;
 
 public :
 
@@ -30,5 +31,8 @@ public :
 
 	void Add_Reacheable_Location(int set);
 	void clear_reacheable_location();
+
+	void Add_Event(Event set);
+	void clear_Event_List();
 };
 

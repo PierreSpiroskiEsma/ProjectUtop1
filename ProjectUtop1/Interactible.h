@@ -11,7 +11,7 @@ class Interactible {
 
 	private : 
 		// -------------------- Variables de la classe Interactible ----------------
-		string name, description, file_location;
+		string name, description, file_location, image_location;
 		int Identification_ID;
 
 	public :
@@ -30,6 +30,9 @@ class Interactible {
 
 		string get_file_location();
 		void set_file_location(string set);
+
+		string get_image_location();
+		void set_image_location(string set);
 
 		void next_screen();
 

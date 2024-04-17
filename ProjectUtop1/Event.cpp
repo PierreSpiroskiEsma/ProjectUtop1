@@ -56,6 +56,17 @@ void Event::set_Malveillance_Message(string Mal)
 	Malveillance_Message = Mal;
 }
 
+string Event::get_AllReadyTalk_location()
+{
+	return AllReadyTalk_location;
+}
+
+void Event::set_AllReadyTalk_location(string set)
+{
+
+	AllReadyTalk_location = set;
+}
+
 bool Event::get_Malveillance_Damage()
 {
 	return Malveillance_Damage;
@@ -93,3 +104,4 @@ void Event::DescriptionFromFile(string String_File_Location)
 		}
 	}
 }
+

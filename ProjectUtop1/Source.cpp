@@ -132,33 +132,6 @@ bool afficher_Menu_Inventory(vector <Item> target) {
 	} while (ChoixJoueurMenuInvAction < 1 || ChoixJoueurMenuInvAction > 3);
 
 	return false;
-
-	//cout << endl;
-	//cout << "****************************************" << endl;
-	//cout << "1.Valider" << "         " << "2.Annuler" << endl << endl;
-	//cout << "****************************************" << endl;
-	//do
-	//{
-	//	cin >> ChoixJoueurMenuInvValidation;
-	//	switch (ChoixJoueurMenuInvValidation)
-	//	{
-	//	case 1:
-	//		
-	//		cout << "je valide" << endl;
-	//		break;
-	//	case 2:
-	//		
-	//		cout << "j'annule" << endl;
-	//		break;
-	//	default:
-	//		cout << "choix invalide"<<endl;
-
-	//		break;
-	//	}
-
-	//} while (ChoixJoueurMenuInvValidation != 1 && ChoixJoueurMenuInvValidation != 2);
-
-
 }
 
 
@@ -343,45 +316,6 @@ void AfficcherEvent(Event target)
 
 int main()
 {
-
-	//initialer les objet
-
-	//deplace le joueur dans le premier lieux 01
-
-	//on affiche les oprion disponible
-
-		// *** Aller ***
-
-			// liste les destination present dans le lieux
-
-				//deplace le joueur dans le lieux selectioner 01
-
-				//Revien au menue 02
-
-		// *** Faire ***
-		
-			// liste les event present dans le lieux
-
-				// lance l'event selectioner et met a jour l'inventaire
-
-				//Revien au menue 02
-
-		// *** Utiliser ***
-
-			// liste les objet present dans l'inventaire
-
-				// Lire la description
-
-				// utiliser
-
-				//Revien au menue 02
-
-			//Revien au menue 02
-
-	
-
-
-
 // ******************************************************************************
 // set up des Event du jeu 
 //*******************************************************************************
@@ -390,8 +324,9 @@ int main()
 
 	Fou_Du_Metro.set_Name("Fou du Metro");
 	Fou_Du_Metro.set_give_Item(true);
-	Fou_Du_Metro.set_Item_Message("item message : Bonjour, belle journée n'est-ce pas ? puis-je vous être utile ? ");
-	Fou_Du_Metro.set_No_Item_message("NoItem : Une seule aide par jour mon amis d'autres son dans le besoin de mon assistance !");
+	Fou_Du_Metro.set_file_location("Ressource_Text/txt_City_FouDuMetro_description.txt");
+	Fou_Du_Metro.set_AllReadyTalk_location("Ressource_Text/txt_City_FouDuMetro_AllReadyTalk.txt");
+	Fou_Du_Metro.set_image_location("Ressource_Images/img_Remi.txt");
 	Fou_Du_Metro.set_Malveillance_Message("Mal : Quel homme inspirant ! vous perdez un point de malveillance !");
 	Fou_Du_Metro.set_Malveillance_Damage(true);
 
@@ -447,8 +382,6 @@ int main()
 	Maison.set_Name("Maison");
 	Maison.set_Identification_ID(9);
 	Maison.Add_Reacheable_Location(6);
-	Maison.Add_Reacheable_Location(7);
-	Maison.Add_Reacheable_Location(8);
 	Maison.Add_Reacheable_Location(9);
 
 
@@ -456,7 +389,7 @@ int main()
 
 	Centre_Ville.set_Name("Centre_Ville");
 	Centre_Ville.set_Identification_ID(6);
-	//Centre_Ville.set_Event_List[Fou_Du_Metro];
+	Centre_Ville.Add_Event(Fou_Du_Metro);
 
 
 
