@@ -35,3 +35,26 @@ void Location::clear_Event_List()
 	Event_List.clear();
 }
 
+vector<Event> Location::get_Event_List()
+{
+	return Event_List;
+}
+
+void Location::DescriptionFromFile(string String_File_Location)
+{
+	ifstream infile(String_File_Location);
+
+	if (infile.is_open()) {
+
+		string line;
+
+		while (getline(infile, line)) {
+
+			cout << line << endl;
+
+		}
+	}
+}
+
+
+

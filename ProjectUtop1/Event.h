@@ -26,12 +26,6 @@ public:
 	Item get_item_Reward();
 	void set_item_reward(Item _Item);
 
-	string get_Item_Message();
-	void set_Item_Message(string Item_Msg);
-
-	string get_No_Item_message();
-	void set_No_Item_message(string NoItem);
-
 	string get_Malveillance_Message();
 	void set_Malveillance_Message(string Mal);
 

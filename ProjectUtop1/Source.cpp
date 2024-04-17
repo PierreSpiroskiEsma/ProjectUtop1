@@ -25,6 +25,15 @@ int Choix_Joueur_Menu_Inventory;
 int ChoixJoueurMenuInvAction;
 int ChoixJoueurMenuInvValidation;
 
+
+//**********************************************
+//variables menu Event
+//**********************************************
+
+int ChoixJoueurMenuEvent;
+int ChoixJoueurMenuEventAction;
+int ChoixJoueurMenuEventValidation;
+
 //**********************************************
 //variables menu Localisation
 //**********************************************
@@ -143,6 +152,7 @@ bool afficher_Menu_Inventory(vector <Item> target) {
 bool afficher_Menu_Localisation(vector <Location> target, Location* _curent_location, Location curent_location) {
 	int MenuLocChoice = 0;
 	int LocPerLine = 0;
+	vector <Location> Location_Menu_list;
 
 	system("cls");
 	cout << "****************************************" << endl;
@@ -167,6 +177,8 @@ bool afficher_Menu_Localisation(vector <Location> target, Location* _curent_loca
 				cout << MenuLocChoice << "." << target[i].get_Name() << "      ";
 
 			}
+
+			Location_Menu_list.push_back(target[i]);
 		}
 
 
@@ -179,14 +191,19 @@ bool afficher_Menu_Localisation(vector <Location> target, Location* _curent_loca
 	do 
 	{
 		cin >> ChoixJoueurMenuLoc;
-		if (ChoixJoueurMenuLoc != 1 && ChoixJoueurMenuLoc != 2 && ChoixJoueurMenuLoc != 3 && ChoixJoueurMenuLoc != 4 && ChoixJoueurMenuLoc != 5) 
+		if (ChoixJoueurMenuLoc < 1 || ChoixJoueurMenuLoc > Location_Menu_list.size() + 2)
 		{
 			cout << "choix invalide" << endl;
 		}
+		else if (ChoixJoueurMenuLoc == Location_Menu_list.size() + 1)
+		{
+			return false;
 
-	} while (ChoixJoueurMenuLoc != 1 && ChoixJoueurMenuLoc != 2 && ChoixJoueurMenuLoc != 3 && ChoixJoueurMenuLoc != 4 && ChoixJoueurMenuLoc != 5);
+		}
 
-	
+	} while (ChoixJoueurMenuLoc < 1 || ChoixJoueurMenuLoc > Location_Menu_list.size() + 2);
+
+	Location CurrentLocation = Location_Menu_list[ChoixJoueurMenuLoc - 1];
 	cout << endl;
 	cout << "****************************************" << endl;
 	cout << "1.Valider" << "         " << "2.Annuler" << endl << endl;
@@ -198,8 +215,8 @@ bool afficher_Menu_Localisation(vector <Location> target, Location* _curent_loca
 		{
 		case 1:
 
-			cout << "mouve to " << target[ChoixJoueurMenuLoc].get_Name() << endl;
-			*_curent_location = target[ChoixJoueurMenuLoc];
+			cout << "mouve to " << CurrentLocation.get_Name() << endl;
+			*_curent_location = CurrentLocation;
 			return false;
 
 		case 2:
@@ -217,6 +234,97 @@ bool afficher_Menu_Localisation(vector <Location> target, Location* _curent_loca
 
 
 }
+
+
+
+// ******************************************************************
+// 
+// Menu Event
+// 
+//******************************************************************
+
+bool AfficherEvent(Location CurrentLocation)
+{
+	//cout << 0 << "." << CurrentLocation.get_Event_List()[0].get_Name() << "      ";
+	int MenuEventChoice = 0;
+	int EventPerLine = 0;
+	Event CurrentEvent;
+	
+
+	system("cls");
+	cout << "****************************************" << endl;
+	cout << endl;
+	for (int i = 0; i < CurrentLocation.get_Event_List().size(); i++)
+	{
+		
+		if (EventPerLine == 3)
+		{
+			EventPerLine = 1;
+
+			cout << endl;
+			cout << i+1 << "." << CurrentLocation.get_Event_List()[i].get_Name() << "  ";
+
+
+		}
+		else
+		{
+			EventPerLine++;
+			cout << i+1 << "." << CurrentLocation.get_Event_List()[i].get_Name() << "      ";
+
+		}
+		
+
+	}
+
+	cout << endl << endl;
+	cout << CurrentLocation.get_Event_List().size() + 1 << ".Annuler";
+	cout << endl << endl;
+	cout << "*****************************************" << endl << endl;
+	
+	do
+	{
+		cin >> ChoixJoueurMenuEvent;
+		if (ChoixJoueurMenuEvent < 1 || ChoixJoueurMenuEvent > CurrentLocation.get_Event_List().size() + 2)
+		{
+			cout << "choix invalide" << endl;
+		}
+		else if (ChoixJoueurMenuEvent == CurrentLocation.get_Event_List().size() + 1)
+		{
+			return false;
+
+		}
+
+	} while (ChoixJoueurMenuEvent < 1 || ChoixJoueurMenuEvent > CurrentLocation.get_Event_List().size() + 2);
+	
+	CurrentEvent = CurrentLocation.get_Event_List()[ChoixJoueurMenuEvent - 1];
+	
+	 CurrentEvent.DescriptionFromFile(CurrentEvent.get_image_location());
+	
+	
+	if (CurrentEvent.get_Visited())
+	{
+	
+		CurrentEvent.DescriptionFromFile(CurrentEvent.get_AllReadyTalk_location());
+	
+	
+	}
+	else
+	{
+
+		CurrentEvent.DescriptionFromFile(CurrentEvent.get_Desctiption());
+		if (CurrentEvent.get_give_Item()) 
+		{
+			CurrentEvent.get_item_Reward().set_is_Possesd(true);
+		}
+
+	}
+	return false;
+
+	
+
+}
+
+
 
 
 // **************************************************************
@@ -244,9 +352,8 @@ bool afficher_Menu_pricipal(vector <Item> UseMenu, vector <Location> GoMenu, Loc
 			return afficher_Menu_Localisation(GoMenu, _curent_location, curent_location);
 
 		case 2:
-			//afficher_Menu_Event()
-			cout << "je vais dans Event" << endl;
-			break;
+			return AfficherEvent(curent_location);
+			
 		case 3:
 
 			return afficher_Menu_Inventory(UseMenu);
@@ -262,73 +369,8 @@ bool afficher_Menu_pricipal(vector <Item> UseMenu, vector <Location> GoMenu, Loc
 }
 
 
-
-void AfficcherEvent(Event target)
-{
-
-
-	/********************************************
-	
-		text text textetext text textetext text texte
-		text text textetext text textetext text texte
-		text text textetext text textetext text texte
-
-		appuyer sur Entrer pour continuer
-	
-	*********************************************/
-
-	/*if (target.get_Visited())
-	{
-		system("cls");
-
-		cout << target.get_No_Item_message() << endl;
-
-		cout << "appuyer sur Entrer pour continuer :" << endl;
-		cin >> rien;
-		cout << endl;
-
-	}
-	else
-	{
-		system("cls");
-
-		cout << target.get_Item_Message() << endl;
-
-		cout << "appuyer sur Entrer pour continuer :" << endl;
-		cin >> rien;
-		cout << endl;
-
-		if (target.get_give_Item())
-		{
-			system("cls");
-
-			cout << "vous avez reçu un beau briquet tout neuf !" << endl;
-
-			cout << "appuyer sur Entrer pour continuer :" << endl;
-			cin >> rien;
-			cout << endl;
-		}
-
-		target.set_Visited(true);
-
-	}*/
-}
-
 int main()
 {
-// ******************************************************************************
-// set up des Event du jeu 
-//*******************************************************************************
-
-	Event Fou_Du_Metro;
-
-	Fou_Du_Metro.set_Name("Fou du Metro");
-	Fou_Du_Metro.set_give_Item(true);
-	Fou_Du_Metro.set_file_location("Ressource_Text/txt_City_FouDuMetro_description.txt");
-	Fou_Du_Metro.set_AllReadyTalk_location("Ressource_Text/txt_City_FouDuMetro_AllReadyTalk.txt");
-	Fou_Du_Metro.set_image_location("Ressource_Images/img_Remi.txt");
-	Fou_Du_Metro.set_Malveillance_Message("Mal : Quel homme inspirant ! vous perdez un point de malveillance !");
-	Fou_Du_Metro.set_Malveillance_Damage(true);
 
 // ******************************************************************************
 // set up des objets du jeu 
@@ -357,7 +399,7 @@ int main()
 	Ticket.set_Desctiption("Un ticket pour le musée du vieux monde que vous avez acheté.");
 	Ticket.set_Identification_ID(3);
 	Ticket.set_Is_Visible(true);
-	Ticket.set_is_Possesd(true);
+	Ticket.set_is_Possesd(false);
 	
 	Item Ticket2;
 
@@ -373,6 +415,23 @@ int main()
 	declencheur_Park.set_Is_Visible(false);
 	declencheur_Park.set_is_Possesd(true);
 
+
+	// ******************************************************************************
+// set up des Event du jeu 
+//*******************************************************************************
+
+	Event Fou_Du_Metro;
+
+	Fou_Du_Metro.set_Name("Fou du Metro");
+	Fou_Du_Metro.set_give_Item(true);
+	Fou_Du_Metro.set_file_location("Ressource_Text/txt_City_FouDuMetro_description.txt");
+	Fou_Du_Metro.set_AllReadyTalk_location("Ressource_Text/txt_City_FouDuMetro_AllReadyTalk.txt");
+	Fou_Du_Metro.set_image_location("Ressource_Images/img_Remi.txt");
+	Fou_Du_Metro.set_Malveillance_Message("Mal : Quel homme inspirant ! vous perdez un point de malveillance !");
+	Fou_Du_Metro.set_Malveillance_Damage(true);
+	Fou_Du_Metro.set_item_reward(Ticket);
+
+
 	// ******************************************************************************
 	// set up des Lieux du jeu 
 	//*******************************************************************************
@@ -382,6 +441,8 @@ int main()
 	Maison.set_Name("Maison");
 	Maison.set_Identification_ID(9);
 	Maison.Add_Reacheable_Location(6);
+	Maison.Add_Reacheable_Location(7);
+	Maison.Add_Reacheable_Location(8);
 	Maison.Add_Reacheable_Location(9);
 
 

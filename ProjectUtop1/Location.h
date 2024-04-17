@@ -34,5 +34,7 @@ public :
 
 	void Add_Event(Event set);
 	void clear_Event_List();
+	vector <Event> get_Event_List();
+	void DescriptionFromFile(string String_File_Location);
 };
 

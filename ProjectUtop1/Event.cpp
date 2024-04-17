@@ -23,28 +23,6 @@ void Event::set_item_reward(Item _Item)
 	Item_Reward = _Item;
 }
 
-string Event::get_Item_Message()
-{
-	return Item_Message;
-}
-
-void Event::set_Item_Message(string Item_Msg)
-{
-	Item_Message = Item_Msg;
-
-}
-
-string Event::get_No_Item_message()
-{
-	return No_Item_message;
-}
-
-void Event::set_No_Item_message(string NoItem)
-{
-	No_Item_message = NoItem;
-
-}
-
 string Event::get_Malveillance_Message()
 {
 	return Malveillance_Message;
