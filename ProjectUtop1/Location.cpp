@@ -9,10 +9,10 @@ bool Location::is_reacheable(int target)
 	{
 		if (Reacheable_Location[i] == target) {
 			return true;
-		}
-
-		return false;
+		}	
 	}
+
+	return false;
 }
 
 void Location::Add_Reacheable_Location(int set)
