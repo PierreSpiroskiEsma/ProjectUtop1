@@ -39,7 +39,7 @@ int ChoixJoueurMenuEventValidation;
 //**********************************************
 
 int ChoixJoueurMenuLocValidation;
-int ChoixJoueurMenuLoc;
+int Choix_Joueur_Menu_Location;
 
 // **************************************************************
 // Menu Inventaire
@@ -149,9 +149,9 @@ bool afficher_Menu_Inventory(vector <Item> target) {
 // Menu Localisation
 //***************************************************************
 
-bool afficher_Menu_Localisation(vector <Location> target, Location* _curent_location) {
-	int MenuLocChoice = 0;
-	int LocPerLine = 0;
+bool afficher_Menu_Localisation(vector <Location> target, Location* curent_location) {
+	int Menu_Location_Choice = 0;
+	int Location_Per_Line = 0;
 	vector <Location> Location_Menu_list;
 
 	system("cls");
@@ -159,22 +159,22 @@ bool afficher_Menu_Localisation(vector <Location> target, Location* _curent_loca
 	cout << endl;
 	for (int i = 0; i < target.size(); i++)
 	{
-		if (_curent_location->is_reacheable(target[i].get_Identification_ID()))
+		if (curent_location->is_reacheable(target[i].get_Identification_ID()))
 		{
-			MenuLocChoice++;
-			if (LocPerLine == 3)
+			Menu_Location_Choice++;
+			if (Location_Per_Line == 3)
 			{
-				LocPerLine = 1;
+				Location_Per_Line = 1;
 
 				cout << endl;
-				cout << MenuLocChoice << "." << target[i].get_Name() << "  ";
+				cout << Menu_Location_Choice << "." << target[i].get_Name() << "  ";
 
 
 			}
 			else
 			{
-				LocPerLine++;
-				cout << MenuLocChoice << "." << target[i].get_Name() << "      ";
+				Location_Per_Line++;
+				cout << Menu_Location_Choice << "." << target[i].get_Name() << "      ";
 
 			}
 
@@ -185,25 +185,25 @@ bool afficher_Menu_Localisation(vector <Location> target, Location* _curent_loca
 
 	};
 	cout << endl << endl;
-	cout << MenuLocChoice + 1 << ".Annuler";
+	cout << Menu_Location_Choice + 1 << ".Annuler";
 	cout << endl << endl;
 	cout << "*****************************************" << endl << endl;
 	do 
 	{
-		cin >> ChoixJoueurMenuLoc;
-		if (ChoixJoueurMenuLoc < 1 || ChoixJoueurMenuLoc > Location_Menu_list.size() + 2)
+		cin >> Choix_Joueur_Menu_Location;
+		if (Choix_Joueur_Menu_Location < 1 || Choix_Joueur_Menu_Location > Location_Menu_list.size() + 2)
 		{
 			cout << "choix invalide" << endl;
 		}
-		else if (ChoixJoueurMenuLoc == Location_Menu_list.size() + 1)
+		else if (Choix_Joueur_Menu_Location == Location_Menu_list.size() + 1)
 		{
 			return false;
 
 		}
 
-	} while (ChoixJoueurMenuLoc < 1 || ChoixJoueurMenuLoc > Location_Menu_list.size() + 2);
+	} while (Choix_Joueur_Menu_Location < 1 || Choix_Joueur_Menu_Location > Location_Menu_list.size() + 2);
 
-	Location CurrentLocation = Location_Menu_list[ChoixJoueurMenuLoc - 1];
+	Location CurrentLocation = Location_Menu_list[Choix_Joueur_Menu_Location - 1];
 	cout << endl;
 	cout << "****************************************" << endl;
 	cout << "1.Valider" << "         " << "2.Annuler" << endl << endl;
@@ -216,7 +216,7 @@ bool afficher_Menu_Localisation(vector <Location> target, Location* _curent_loca
 		case 1:
 
 			cout << "mouve to " << CurrentLocation.get_Name() << endl;
-			*_curent_location = CurrentLocation;
+			*curent_location = CurrentLocation;
 			return false;
 
 		case 2:
@@ -260,14 +260,14 @@ bool AfficherEvent(Location* CurrentLocation)
 			EventPerLine = 1;
 
 			cout << endl;
-			cout << i+1 << "." << CurrentLocation->get_Event_List()[i].get_Name() << "  ";
+			cout << i+1 << "." << CurrentLocation->get_Event_List()[i]->get_Name() << "  ";
 
 
 		}
 		else
 		{
 			EventPerLine++;
-			cout << i+1 << "." << CurrentLocation->get_Event_List()[i].get_Name() << "      ";
+			cout << i+1 << "." << CurrentLocation->get_Event_List()[i]->get_Name() << "      ";
 
 		}
 		
@@ -294,7 +294,7 @@ bool AfficherEvent(Location* CurrentLocation)
 
 	} while (ChoixJoueurMenuEvent < 1 || ChoixJoueurMenuEvent > CurrentLocation->get_Event_List().size() + 2);
 	
-	Event CurrentEvent = CurrentLocation->get_Event_List()[ChoixJoueurMenuEvent - 1];
+	Event CurrentEvent = *CurrentLocation->get_Event_List()[ChoixJoueurMenuEvent - 1];
 	
 	 CurrentEvent.DescriptionFromFile(CurrentEvent.get_image_location());
 	
@@ -312,8 +312,8 @@ bool AfficherEvent(Location* CurrentLocation)
 		CurrentEvent.DescriptionFromFile(CurrentEvent.get_file_location());
 		if (CurrentEvent.get_give_Item()) 
 		{
-			CurrentLocation->get_Event_List()[ChoixJoueurMenuEvent - 1].get_item_Reward().set_is_Possesd(true);
-			CurrentLocation->get_Event_List()[ChoixJoueurMenuEvent - 1].set_Visited(true);
+			CurrentLocation->get_Event_List()[ChoixJoueurMenuEvent - 1]->get_item_Reward().set_is_Possesd(true);
+			CurrentLocation->get_Event_List()[ChoixJoueurMenuEvent - 1]->set_Visited(true);
 		}
 
 	}
@@ -451,7 +451,7 @@ int main()
 
 	Centre_Ville.set_Name("Centre_Ville");
 	Centre_Ville.set_Identification_ID(6);
-	Centre_Ville.Add_Event(Fou_Du_Metro);
+	Centre_Ville.Add_Event(&Fou_Du_Metro);
 
 
 
