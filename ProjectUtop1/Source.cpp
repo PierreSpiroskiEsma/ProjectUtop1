@@ -4,7 +4,6 @@
 #include <vector> 
 #include "Event.h"
 #include "Interactible.h"
-#include "Inventory.h"
 #include "Item.h"
 #include "Location.h"
 
@@ -45,7 +44,7 @@ int Choix_Joueur_Menu_Location;
 // Menu Inventaire
 //***************************************************************
 
-bool afficher_Menu_Inventory(vector <Item> target) {
+bool afficher_Menu_Inventory(vector <Item> target, Location* curent_location) {
 
 	int MenuInvChoice = 0;
 	int ItemPerLine = 0;
@@ -125,7 +124,7 @@ bool afficher_Menu_Inventory(vector <Item> target) {
 
 			case 2:
 				cout << "J'utilise" << endl;
-				Curently_Use_Item.Use_Item();
+				Curently_Use_Item.Use_Item(curent_location);
 			break;
 
 			case 3:
@@ -357,7 +356,7 @@ bool afficher_Menu_pricipal(vector <Item> UseMenu, vector <Location> GoMenu, Loc
 			
 		case 3:
 
-			return afficher_Menu_Inventory(UseMenu);
+			return afficher_Menu_Inventory(UseMenu, _curent_location);
 
 		default:
 			cout << "choix invalide" << endl;
@@ -385,6 +384,7 @@ int main()
 	Portefeuille.set_Identification_ID(1);
 	Portefeuille.set_Is_Visible(true);
 	Portefeuille.set_is_Possesd(true);
+	Portefeuille.set_Effect_id(1);
 
 	Item Telephone;
 
@@ -393,6 +393,7 @@ int main()
 	Telephone.set_Identification_ID(2);
 	Telephone.set_Is_Visible(true);
 	Telephone.set_is_Possesd(true);
+	Telephone.set_Effect_id(1);
 	
 	Item Ticket;
 
@@ -401,6 +402,8 @@ int main()
 	Ticket.set_Identification_ID(3);
 	Ticket.set_Is_Visible(true);
 	Ticket.set_is_Possesd(false);
+	Ticket.set_Place_Of_Use(6);
+	Ticket.set_Effect_id(8);
 	
 	Item Ticket2;
 

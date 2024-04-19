@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Interactible.h"
+#include "Location.h"
 
 
 using namespace std;
@@ -80,6 +81,10 @@ void Interactible::DescriptionFromFile(string String_File_Location, string* Targ
 		}
 	}
 
+}
+
+void Interactible::Add_Reacheable_Location(int set)
+{
 }
 
 
