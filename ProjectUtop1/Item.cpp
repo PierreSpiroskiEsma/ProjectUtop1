@@ -61,12 +61,15 @@ void Item::DescriptionFromFile(string String_File_Location)
 void Item::Show_Description() {
 	system("cls");
 
-	//Afficher image
-
 	DescriptionFromFile(get_file_location());
 
 	next_screen();
 }
+
+
+// ******************************************************************************
+// Effect Without Item
+//*******************************************************************************
 
 void Item::Effect_library(int choice, Interactible* Place) {
 
@@ -97,6 +100,43 @@ void Item::Use_Item(Interactible* place) {
 		if (!*_Was_Used) {
 
 			Effect_library(Effect_id, place);
+			*_Was_Used = true;
+
+		}
+		else {
+
+			Effect_library(1, place);
+		}
+
+	}
+	else {
+		Effect_library(0, place);
+	}
+
+}
+
+// ******************************************************************************
+// Effect With Item
+//*******************************************************************************
+void Item::Effect_library(int choice, Interactible* Place, Interactible* Item) {
+
+	switch (choice) {
+
+	}
+
+	next_screen();
+
+}
+
+
+
+void Item::Use_Item(Interactible* place, Interactible* Item) {
+
+	if (place->get_Identification_ID() == Place_Of_Use) {
+
+		if (!*_Was_Used) {
+
+			Effect_library(Effect_id, place, Item);
 			*_Was_Used = true;
 
 		}

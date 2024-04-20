@@ -37,7 +37,10 @@ class Interactible {
 		void next_screen();
 
 		virtual void DescriptionFromFile(string String_File_Location, string* Target);
+
 		virtual void Add_Reacheable_Location(int set);
+
+		virtual void set_is_Possesd(bool set);
 
 };
 

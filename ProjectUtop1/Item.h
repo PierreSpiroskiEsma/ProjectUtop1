@@ -35,8 +35,11 @@ public :
 
 	void Show_Description();
 
+	void Effect_library(int choice, Interactible* Place);
 	void Use_Item(Interactible* place);
 
-	void Effect_library(int choice, Interactible* Place);
+	//Surchage for adding Item
+	void Use_Item(Interactible* place, Interactible* Item);
+	void Effect_library(int choice, Interactible* Place, Interactible* Item);
 };
 

@@ -83,8 +83,8 @@ void Interactible::DescriptionFromFile(string String_File_Location, string* Targ
 
 }
 
-void Interactible::Add_Reacheable_Location(int set)
-{
-}
+void Interactible::Add_Reacheable_Location(int set){}
+
+void Interactible::set_is_Possesd(bool set){}
 
 
