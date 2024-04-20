@@ -8,8 +8,8 @@ private :
 	// -------------------- Variables de la classe Item ----------------
 
 
-
-	bool Is_Visible, is_Possesd;
+	bool Is_Visible = true;
+	bool is_Possesd;
 	int Place_Of_Use, Effect_id;
 	bool Was_Used = false;
 	bool* _Was_Used = &Was_Used;
@@ -35,8 +35,8 @@ public :
 
 	void Show_Description();
 
-	void Effect_library(int choice, Interactible* Place);
-	void Use_Item(Interactible* place);
+	bool Effect_library(int choice, Interactible* Place);
+	bool Use_Item(Interactible* place);
 
 	//Surchage for adding Item
 	void Use_Item(Interactible* place, Interactible* Item);

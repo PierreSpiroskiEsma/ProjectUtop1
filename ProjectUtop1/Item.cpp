@@ -71,11 +71,29 @@ void Item::Show_Description() {
 // Effect Without Item
 //*******************************************************************************
 
-void Item::Effect_library(int choice, Interactible* Place) {
+bool Item::Effect_library(int choice, Interactible* Place) {
 
 	switch (choice) {
-
-	case 8:
+	case 6:
+		//	DescriptionFromFile("Ressource_Text/txt_Ticket_Effect.txt");
+		next_screen();
+		return true;
+		
+	case 5:
+	//	DescriptionFromFile("Ressource_Text/txt_Ticket_Effect.txt");
+		Place->Add_Reacheable_Location(10);
+		break;
+	case 4:
+		//	DescriptionFromFile("Ressource_Text/txt_Ticket_Effect.txt");
+		next_screen();
+		return true;
+		
+	case 3: 
+		//	DescriptionFromFile("Ressource_Text/txt_Ticket_Effect.txt");
+		next_screen();
+		return true;
+		
+	case 2:
 		Place->Add_Reacheable_Location(7);
 		DescriptionFromFile("Ressource_Text/txt_Ticket_Effect.txt");
 		break;
@@ -90,64 +108,65 @@ void Item::Effect_library(int choice, Interactible* Place) {
 	}
 
 	next_screen();
+	return false;
 
 }
 
-void Item::Use_Item(Interactible* place) {
+bool Item::Use_Item(Interactible* place) {
 
 	if (place->get_Identification_ID() == Place_Of_Use) {
 
 		if (!*_Was_Used) {
 
-			Effect_library(Effect_id, place);
+			return Effect_library(Effect_id, place);
 			*_Was_Used = true;
 
 		}
 		else {
 
-			Effect_library(1, place);
+			return Effect_library(1, place);
 		}
 
 	}
 	else {
-		Effect_library(0, place);
+		return Effect_library(0, place);
 	}
-
+	
 }
 
 // ******************************************************************************
 // Effect With Item
 //*******************************************************************************
-void Item::Effect_library(int choice, Interactible* Place, Interactible* Item) {
+bool Item::Effect_library(int choice, Interactible* Place, Interactible* Item) {
 
-	switch (choice) {
-
-	}
+	//	DescriptionFromFile("Ressource_Text/txt_Ticket_Effect.txt");
+	Item->set_is_Possesd(true);
 
 	next_screen();
+	return false;
 
 }
 
 
 
-void Item::Use_Item(Interactible* place, Interactible* Item) {
+bool Item::Use_Item(Interactible* place, Interactible* Item) {
 
 	if (place->get_Identification_ID() == Place_Of_Use) {
 
 		if (!*_Was_Used) {
 
-			Effect_library(Effect_id, place, Item);
+			return Effect_library(Effect_id, place, Item);
 			*_Was_Used = true;
 
 		}
 		else {
 
-			Effect_library(1, place);
+			return Effect_library(1, place);
 		}
 
 	}
 	else {
-		Effect_library(0, place);
+		return Effect_library(0, place);
 	}
-
+	
 }

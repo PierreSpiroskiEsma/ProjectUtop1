@@ -124,7 +124,15 @@ bool afficher_Menu_Inventory(vector <Item> target, Location* curent_location) {
 
 			case 2:
 				cout << "J'utilise" << endl;
-				Curently_Use_Item.Use_Item(curent_location);
+				
+				if (Curently_Use_Item.get_Identification_ID() == 1) 
+				{
+					Curently_Use_Item.Use_Item(curent_location, target[target.size()-1]);
+				}
+				else 
+				{
+					Curently_Use_Item.Use_Item(curent_location);
+				}
 			break;
 
 			case 3:
@@ -376,48 +384,63 @@ int main()
 // set up des objets du jeu 
 //*******************************************************************************
 
-	Item Portefeuille;
+	Item Codes_Nucléaires;
 
-	Portefeuille.set_Name("Portefeuille");
-	Portefeuille.set_Desctiption("C'est un vieux portefeuille en cuir noir");
-	Portefeuille.set_file_location("Ressource_Text/txt_Portefeuille_Description.txt");
-	Portefeuille.set_Identification_ID(1);
-	Portefeuille.set_Is_Visible(true);
-	Portefeuille.set_is_Possesd(true);
-	Portefeuille.set_Effect_id(1);
+	Codes_Nucléaires.set_Name("Codes_Nucléaires");
+	Codes_Nucléaires.set_Desctiption("C'est un vieux portefeuille en cuir noir");
+	//Codes_Nucléaires.set_file_location("Ressource_Text/txt_Portefeuille_Description.txt");
+	Codes_Nucléaires.set_Identification_ID(1);
+	Codes_Nucléaires.set_is_Possesd(false);
+	Codes_Nucléaires.set_Effect_id(7);
+	Codes_Nucléaires.set_Place_Of_Use(8);
 
-	Item Telephone;
+	Item Mouchoir_Sale;
 
-	Telephone.set_Name("Telephone");
-	Telephone.set_Desctiption("Un 3310 !!!!! une vrais relique d'un anciens monde !!");
-	Telephone.set_Identification_ID(2);
-	Telephone.set_Is_Visible(true);
-	Telephone.set_is_Possesd(true);
-	Telephone.set_Effect_id(1);
+	Mouchoir_Sale.set_Name("Mouchoir_Sale");
+	Mouchoir_Sale.set_Desctiption("Un 3310 !!!!! une vrais relique d'un anciens monde !!");
+	//Mouchoir_Sale.set_file_location("Ressource_Text/txt_Portefeuille_Description.txt");
+	Mouchoir_Sale.set_Identification_ID(2);
+	Mouchoir_Sale.set_is_Possesd(false);
+	Mouchoir_Sale.set_Effect_id(3);
+	Mouchoir_Sale.set_Place_Of_Use(11);
 	
-	Item Ticket;
+	Item Ticket_du_Musée;
 
-	Ticket.set_Name("Ticket");
-	Ticket.set_Desctiption("Un ticket pour le musée du vieux monde que vous avez acheté.");
-	Ticket.set_Identification_ID(3);
-	Ticket.set_Is_Visible(true);
-	Ticket.set_is_Possesd(false);
-	Ticket.set_Place_Of_Use(6);
-	Ticket.set_Effect_id(8);
+	Ticket_du_Musée.set_Name("Ticket_du_Musée");
+	Ticket_du_Musée.set_Desctiption("Un ticket pour le musée du vieux monde que vous avez acheté.");
+	//Ticket_du_Musée.set_file_location("Ressource_Text/txt_Portefeuille_Description.txt");
+	Ticket_du_Musée.set_Identification_ID(3);
+	Ticket_du_Musée.set_is_Possesd(false);
+	Ticket_du_Musée.set_Place_Of_Use(6);
+	Ticket_du_Musée.set_Effect_id(2);
+	Ticket_du_Musée.set_Place_Of_Use(6);// ?? pas sur//
 	
-	Item Ticket2;
+	Item Morceau_de_Fromage;
 
-	Ticket2.set_Name("Ticket2");
-	Ticket2.set_Desctiption("Un ticket2 pour le musée du vieux monde que vous avez acheté.");
-	Ticket2.set_Identification_ID(5);
-	Ticket2.set_Is_Visible(true);
-	Ticket2.set_is_Possesd(true);
+	Morceau_de_Fromage.set_Name("Morceau_de_Fromage");
+	Morceau_de_Fromage.set_Desctiption("Un ticket2 pour le musée du vieux monde que vous avez acheté.");
+	//Morceau_de_Fromage.set_file_location("Ressource_Text/txt_Portefeuille_Description.txt");
+	Morceau_de_Fromage.set_Identification_ID(4);
+	Morceau_de_Fromage.set_is_Possesd(false);
+	Morceau_de_Fromage.set_Effect_id(4);
+	Morceau_de_Fromage.set_Place_Of_Use(10);
 
-	Item declencheur_Park;
+	Item Prospectus_de_la_Turbine;
 
-	declencheur_Park.set_Identification_ID(4);
-	declencheur_Park.set_Is_Visible(false);
-	declencheur_Park.set_is_Possesd(true);
+	Prospectus_de_la_Turbine.set_Name("Prospectus_de_la_Turbine");
+	Prospectus_de_la_Turbine.set_Identification_ID(5);
+	//Prospectus_de_la_Turbine.set_file_location("Ressource_Text/txt_Portefeuille_Description.txt");
+	Prospectus_de_la_Turbine.set_is_Possesd(false);
+	Prospectus_de_la_Turbine.set_Effect_id(5);
+	Prospectus_de_la_Turbine.set_Place_Of_Use(6); // ?? pas sur//
+
+	Item Colère_Interieure;
+
+	Colère_Interieure.set_Name("Colère_Interieure");
+	Colère_Interieure.set_Identification_ID(6);
+	//Colère_Interieure.set_file_location("Ressource_Text/txt_Portefeuille_Description.txt");
+	Colère_Interieure.set_is_Possesd(false);
+	Colère_Interieure.set_Effect_id(6);
 
 
 	// ******************************************************************************
@@ -433,7 +456,7 @@ int main()
 	Fou_Du_Metro.set_image_location("Ressource_Images/img_Remi.txt");
 	Fou_Du_Metro.set_Malveillance_Message("Mal : Quel homme inspirant ! vous perdez un point de malveillance !");
 	Fou_Du_Metro.set_Malveillance_Damage(true);
-	Fou_Du_Metro.set_item_reward(Ticket);
+	Fou_Du_Metro.set_item_reward(Ticket_du_Musée);
 
 
 	// ******************************************************************************
@@ -465,10 +488,10 @@ int main()
 
 
 
-	Location Salle_de_la_Bombe;
+	Location Aire_de_jeu_de_Lancement;
 
-	Salle_de_la_Bombe.set_Name("Salle_de_la_Bombe");
-	Salle_de_la_Bombe.set_Identification_ID(8);
+	Aire_de_jeu_de_Lancement.set_Name("Salle_de_la_Bombe");
+	Aire_de_jeu_de_Lancement.set_Identification_ID(8);
 
 
 	Location Park;
@@ -476,6 +499,16 @@ int main()
 	Park.set_Name("Park");
 	Park.set_Identification_ID(9);
 
+
+	Location Le_Grand_Purificateur;
+
+	Le_Grand_Purificateur.set_Name("Park");
+	Le_Grand_Purificateur.set_Identification_ID(10);
+
+	Location Bouches_du_Metro;
+
+	Le_Grand_Purificateur.set_Name("Park");
+	Le_Grand_Purificateur.set_Identification_ID(11);
 
 	// ******************************************************************************
 	// Remplissage des tableau d'objet
@@ -486,18 +519,27 @@ int main()
 		Maison,
 		Centre_Ville,
 		Musee,
-		Salle_de_la_Bombe,
+		Aire_de_jeu_de_Lancement,
 		Park,
+		Le_Grand_Purificateur,
+		Bouches_du_Metro,
 
 	};
-
+	
+	
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// La colère interieure doit obligatoirement être en dernière position !!!!!!!!!!!
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	
 	vector <Item> Tableau_Item
 	{
-		Portefeuille,
-		declencheur_Park,
-		Ticket,
-		Ticket2,
-		Telephone,
+		Codes_Nucléaires,
+		Mouchoir_Sale,
+		Ticket_du_Musée,
+		Morceau_de_Fromage,
+		Prospectus_de_la_Turbine,
+
+		Colère_Interieure,
 	};
 
 	vector <Event> Tableau_Event
