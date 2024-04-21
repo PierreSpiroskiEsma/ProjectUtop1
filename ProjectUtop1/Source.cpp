@@ -466,11 +466,9 @@ int main()
 	Location Maison;
 
 	Maison.set_Name("Maison");
-	Maison.set_Identification_ID(9);
+	Maison.set_Identification_ID(15);
 	Maison.Add_Reacheable_Location(6);
-	Maison.Add_Reacheable_Location(7);
-	Maison.Add_Reacheable_Location(8);
-	Maison.Add_Reacheable_Location(9);
+
 
 
 	Location Centre_Ville;
@@ -478,6 +476,10 @@ int main()
 	Centre_Ville.set_Name("Centre_Ville");
 	Centre_Ville.set_Identification_ID(6);
 	Centre_Ville.Add_Event(&Fou_Du_Metro);
+	Centre_Ville.Add_Reacheable_Location(11);
+	Centre_Ville.Add_Reacheable_Location(9);
+	Centre_Ville.Add_Reacheable_Location(15);
+	Centre_Ville.Add_Reacheable_Location(16);
 
 
 
@@ -485,30 +487,73 @@ int main()
 
 	Musee.set_Name("Musee");
 	Musee.set_Identification_ID(7);
+	Musee.Add_Reacheable_Location(6);	
+	Musee.Add_Reacheable_Location(12);
+	Musee.Add_Reacheable_Location(13);
+
+
+
+	Location Exposition_de_Fromage;
+
+	Exposition_de_Fromage.set_Name("Exposition_de_Fromage");
+	Exposition_de_Fromage.set_Identification_ID(12);
+	Exposition_de_Fromage.Add_Reacheable_Location(7);
+
+	Location Exposition_de_la_Vielle_Guerre;
+
+	Exposition_de_la_Vielle_Guerre.set_Name("Exposition_de_la_Vielle_Guerre");
+	Exposition_de_la_Vielle_Guerre.set_Identification_ID(13);
+	Exposition_de_la_Vielle_Guerre.Add_Reacheable_Location(7);
 
 
 
 	Location Aire_de_jeu_de_Lancement;
 
-	Aire_de_jeu_de_Lancement.set_Name("Salle_de_la_Bombe");
+	Aire_de_jeu_de_Lancement.set_Name("Aire_de_jeu_de_Lancement");
 	Aire_de_jeu_de_Lancement.set_Identification_ID(8);
+	Aire_de_jeu_de_Lancement.Add_Reacheable_Location(9);
 
 
 	Location Park;
 
 	Park.set_Name("Park");
 	Park.set_Identification_ID(9);
+	Park.Add_Reacheable_Location(6);
+	Park.Add_Reacheable_Location(8);
+
+
 
 
 	Location Le_Grand_Purificateur;
 
-	Le_Grand_Purificateur.set_Name("Park");
+	Le_Grand_Purificateur.set_Name("Le_Grand_Purificateur");
 	Le_Grand_Purificateur.set_Identification_ID(10);
+	Le_Grand_Purificateur.Add_Reacheable_Location(6);
 
-	Location Bouches_du_Metro;
 
-	Le_Grand_Purificateur.set_Name("Park");
-	Le_Grand_Purificateur.set_Identification_ID(11);
+
+	Location Metro;
+
+	Metro.set_Name("Metro");
+	Metro.set_Identification_ID(11);
+	Metro.Add_Reacheable_Location(6);
+	Metro.Add_Reacheable_Location(14);
+
+
+	Location Systeme_de_Ventilation_du_Metro;
+
+	Systeme_de_Ventilation_du_Metro.set_Name("Systeme_de_Ventilation_du_Metro");
+	Systeme_de_Ventilation_du_Metro.set_Identification_ID(14);
+	Systeme_de_Ventilation_du_Metro.Add_Reacheable_Location(11);
+
+
+	Location Antiquaire;
+
+	Antiquaire.set_Name("Antiquaire");
+	Antiquaire.set_Identification_ID(16);
+	Antiquaire.Add_Reacheable_Location(6);
+
+
 
 	// ******************************************************************************
 	// Remplissage des tableau d'objet
@@ -519,10 +564,14 @@ int main()
 		Maison,
 		Centre_Ville,
 		Musee,
+		Exposition_de_Fromage,
+		Exposition_de_la_Vielle_Guerre,
 		Aire_de_jeu_de_Lancement,
 		Park,
 		Le_Grand_Purificateur,
-		Bouches_du_Metro,
+		Metro,
+		Systeme_de_Ventilation_du_Metro,
+		Antiquaire,
 
 	};
 	
