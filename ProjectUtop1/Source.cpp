@@ -127,7 +127,7 @@ bool afficher_Menu_Inventory(vector <Item> target, Location* curent_location) {
 				
 				if (Curently_Use_Item.get_Identification_ID() == 1) 
 				{
-					Curently_Use_Item.Use_Item(curent_location, target[target.size()-1]);
+					Curently_Use_Item.Use_Item(curent_location, &target[target.size()-1]);
 				}
 				else 
 				{

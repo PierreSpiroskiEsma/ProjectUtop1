@@ -39,7 +39,7 @@ public :
 	bool Use_Item(Interactible* place);
 
 	//Surchage for adding Item
-	void Use_Item(Interactible* place, Interactible* Item);
-	void Effect_library(int choice, Interactible* Place, Interactible* Item);
+	bool Use_Item(Interactible* place, Interactible* Item);
+	bool Effect_library(int choice, Interactible* Place, Interactible* Item);
 };
 
