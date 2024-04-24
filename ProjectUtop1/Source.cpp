@@ -44,11 +44,11 @@ int Choix_Joueur_Menu_Location;
 // Menu Inventaire
 //***************************************************************
 
-bool afficher_Menu_Inventory(vector <Item> target, Location* curent_location) {
+bool afficher_Menu_Inventory(vector <Item*> target, Location* curent_location) {
 
 	int MenuInvChoice = 0;
 	int ItemPerLine = 0;
-	vector <Item> Item_Menu_list;
+	vector <Item*> Item_Menu_list;
 
 	system("cls");
 	cout << "****************************************" << endl;
@@ -56,9 +56,9 @@ bool afficher_Menu_Inventory(vector <Item> target, Location* curent_location) {
 
 	for (int i = 0; i < target.size(); i++)
 	{
-		if (target[i].get_is_Possesd())
+		if (target[i]->get_is_Possesd())
 		{
-			if (target[i].get_Is_Visible())
+			if (target[i]->get_Is_Visible())
 			{
 				MenuInvChoice++;
 				if (ItemPerLine == 3)
@@ -66,14 +66,14 @@ bool afficher_Menu_Inventory(vector <Item> target, Location* curent_location) {
 					ItemPerLine = 1;
 					
 					cout << endl;
-					cout << MenuInvChoice << "." << target[i].get_Name()<<"  ";
+					cout << MenuInvChoice << "." << target[i]->get_Name()<<"  ";
 
 
 				}
 				else
 				{
 					ItemPerLine++;
-					cout << MenuInvChoice << "." << target[i].get_Name() << "      ";
+					cout << MenuInvChoice << "." << target[i]->get_Name() << "      ";
 
 				}
 
@@ -103,8 +103,8 @@ bool afficher_Menu_Inventory(vector <Item> target, Location* curent_location) {
 
 	} while (Choix_Joueur_Menu_Inventory < 1 || Choix_Joueur_Menu_Inventory > Item_Menu_list.size() + 2);
 
-	Item Curently_Use_Item = Item_Menu_list[Choix_Joueur_Menu_Inventory - 1];
-	cout << Curently_Use_Item.get_Name();
+	Item* Curently_Use_Item = Item_Menu_list[Choix_Joueur_Menu_Inventory - 1];
+	cout << Curently_Use_Item->get_Name();
 
 	cout << endl;
 	cout << "****************************************" << endl;
@@ -119,19 +119,19 @@ bool afficher_Menu_Inventory(vector <Item> target, Location* curent_location) {
 
 			case 1:
 				cout << "je regarde" << endl;
-				Curently_Use_Item.Show_Description();
+				Curently_Use_Item->Show_Description();
 			break;
 
 			case 2:
 				cout << "J'utilise" << endl;
 				
-				if (Curently_Use_Item.get_Identification_ID() == 1) 
+				if (Curently_Use_Item->get_Identification_ID() == 1) 
 				{
-					Curently_Use_Item.Use_Item(curent_location, &target[target.size()-1]);
+					Curently_Use_Item->Use_Item(curent_location, target[target.size()-1]);
 				}
 				else 
 				{
-					Curently_Use_Item.Use_Item(curent_location);
+					Curently_Use_Item->Use_Item(curent_location);
 				}
 			break;
 
@@ -319,7 +319,7 @@ bool AfficherEvent(Location* CurrentLocation)
 		CurrentEvent.DescriptionFromFile(CurrentEvent.get_file_location());
 		if (CurrentEvent.get_give_Item()) 
 		{
-			CurrentLocation->get_Event_List()[ChoixJoueurMenuEvent - 1]->get_item_Reward().set_is_Possesd(true);
+			CurrentLocation->get_Event_List()[ChoixJoueurMenuEvent - 1]->get_item_Reward()->set_is_Possesd(true);
 			CurrentLocation->get_Event_List()[ChoixJoueurMenuEvent - 1]->set_Visited(true);
 		}
 
@@ -327,9 +327,6 @@ bool AfficherEvent(Location* CurrentLocation)
 
 	CurrentEvent.next_screen();
 	return false;
-
-	
-
 }
 
 
@@ -338,7 +335,7 @@ bool AfficherEvent(Location* CurrentLocation)
 // **************************************************************
 // Menu principal
 //***************************************************************
-bool afficher_Menu_pricipal(vector <Item> UseMenu, vector <Location> GoMenu, Location* _curent_location, Location curent_location) {
+bool afficher_Menu_pricipal(vector <Item*> UseMenu, vector <Location> GoMenu, Location* _curent_location, Location curent_location) {
 
 	system("cls");
 	cout << curent_location.get_Name() << endl;
@@ -421,7 +418,7 @@ int main()
 	Morceau_de_Fromage.set_Desctiption("Un ticket2 pour le musée du vieux monde que vous avez acheté.");
 	//Morceau_de_Fromage.set_file_location("Ressource_Text/txt_Portefeuille_Description.txt");
 	Morceau_de_Fromage.set_Identification_ID(4);
-	Morceau_de_Fromage.set_is_Possesd(false);
+	Morceau_de_Fromage.set_is_Possesd(true);
 	Morceau_de_Fromage.set_Effect_id(4);
 	Morceau_de_Fromage.set_Place_Of_Use(10);
 
@@ -456,7 +453,7 @@ int main()
 	Fou_Du_Metro.set_image_location("Ressource_Images/img_Remi.txt");
 	Fou_Du_Metro.set_Malveillance_Message("Mal : Quel homme inspirant ! vous perdez un point de malveillance !");
 	Fou_Du_Metro.set_Malveillance_Damage(true);
-	Fou_Du_Metro.set_item_reward(Ticket_du_Musée);
+	Fou_Du_Metro.set_item_reward(&Ticket_du_Musée);
 
 
 	// ******************************************************************************
@@ -580,15 +577,15 @@ int main()
 	// La colère interieure doit obligatoirement être en dernière position !!!!!!!!!!!
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	
-	vector <Item> Tableau_Item
+	vector <Item*> Tableau_Item
 	{
-		Codes_Nucléaires,
-		Mouchoir_Sale,
-		Ticket_du_Musée,
-		Morceau_de_Fromage,
-		Prospectus_de_la_Turbine,
+		&Codes_Nucléaires,
+		&Mouchoir_Sale,
+		&Ticket_du_Musée,
+		&Morceau_de_Fromage,
+		&Prospectus_de_la_Turbine,
 
-		Colère_Interieure,
+		&Colère_Interieure,
 	};
 
 	vector <Event> Tableau_Event

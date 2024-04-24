@@ -13,12 +13,12 @@ void Event::set_give_Item(bool Is_Item)
 
 }
 
-Item Event::get_item_Reward()
+Item* Event::get_item_Reward()
 {
 	return Item_Reward;
 }
 
-void Event::set_item_reward(Item _Item)
+void Event::set_item_reward(Item* _Item)
 {
 	Item_Reward = _Item;
 }
