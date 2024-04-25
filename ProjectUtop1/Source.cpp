@@ -338,7 +338,10 @@ bool AfficherEvent(Location* CurrentLocation)
 bool afficher_Menu_pricipal(vector <Item*> UseMenu, vector <Location> GoMenu, Location* _curent_location, Location curent_location) {
 
 	system("cls");
-	cout << curent_location.get_Name() << endl;
+	cout << _curent_location->get_Name() << endl;
+	_curent_location->DescriptionFromFile(_curent_location->get_image_location());
+	cout << endl;
+	_curent_location->DescriptionFromFile(_curent_location->get_file_location());
 	cout << "****************************************" << endl;
 	cout << endl;
 	cout << "1.Aller	  2.faire	  3.Utiliser un objet" << endl;
@@ -374,18 +377,17 @@ bool afficher_Menu_pricipal(vector <Item*> UseMenu, vector <Location> GoMenu, Lo
 }
 
 
-int main()
-{
+int main(){
 
-// ******************************************************************************
-// set up des objets du jeu 
-//*******************************************************************************
+	// ******************************************************************************
+	// set up des objets du jeu 
+	//*******************************************************************************
 
 	Item Codes_Nucléaires;
 
 	Codes_Nucléaires.set_Name("Codes_Nucléaires");
-	Codes_Nucléaires.set_Desctiption("C'est un vieux portefeuille en cuir noir");
-	//Codes_Nucléaires.set_file_location("Ressource_Text/txt_Portefeuille_Description.txt");
+
+	Codes_Nucléaires.set_file_location("Ressource_Text/txt_FinNucléaire_PhotoCodeNucleaire_Description.txt");
 	Codes_Nucléaires.set_Identification_ID(1);
 	Codes_Nucléaires.set_is_Possesd(false);
 	Codes_Nucléaires.set_Effect_id(7);
@@ -395,7 +397,8 @@ int main()
 
 	Mouchoir_Sale.set_Name("Mouchoir_Sale");
 	Mouchoir_Sale.set_Desctiption("Un 3310 !!!!! une vrais relique d'un anciens monde !!");
-	//Mouchoir_Sale.set_file_location("Ressource_Text/txt_Portefeuille_Description.txt");
+	Mouchoir_Sale.set_image_location("Ressource_Images/img_mouchoir.txt");
+	Mouchoir_Sale.set_file_location("Ressource_Text/txt_Portefeuille_Description.txt");
 	Mouchoir_Sale.set_Identification_ID(2);
 	Mouchoir_Sale.set_is_Possesd(false);
 	Mouchoir_Sale.set_Effect_id(3);
@@ -441,8 +444,8 @@ int main()
 
 
 	// ******************************************************************************
-// set up des Event du jeu 
-//*******************************************************************************
+	// set up des Event du jeu 
+	//*******************************************************************************
 
 	Event Fou_Du_Metro;
 
@@ -455,6 +458,16 @@ int main()
 	Fou_Du_Metro.set_Malveillance_Damage(true);
 	Fou_Du_Metro.set_item_reward(&Ticket_du_Musée);
 
+	Event Photo_Code_Nucleaire;
+
+	Photo_Code_Nucleaire.set_Name("Prendre en photo les codes nucleaires");
+	Photo_Code_Nucleaire.set_give_Item(true);
+	Photo_Code_Nucleaire.set_file_location("Ressource_Text/txt_FinNucléaire_PhotoCodeNucleaire_Action.txt");
+	Photo_Code_Nucleaire.set_AllReadyTalk_location("Ressource_Text/txt_FinNucléaire_PhotoCodeNucleaire_AlreadyDone.txt");
+	Photo_Code_Nucleaire.set_image_location("Ressource_Images/img_CodeNucléaire.txt");
+	Photo_Code_Nucleaire.set_item_reward(&Codes_Nucléaires);
+
+
 
 	// ******************************************************************************
 	// set up des Lieux du jeu 
@@ -465,6 +478,8 @@ int main()
 	Maison.set_Name("Maison");
 	Maison.set_Identification_ID(15);
 	Maison.Add_Reacheable_Location(6);
+	Maison.set_file_location("Ressource_Text/txt_House_Description.txt");
+	Maison.set_image_location("Ressource_Images/img_Maison.txt");
 
 
 
@@ -477,16 +492,21 @@ int main()
 	Centre_Ville.Add_Reacheable_Location(9);
 	Centre_Ville.Add_Reacheable_Location(15);
 	Centre_Ville.Add_Reacheable_Location(16);
+	Centre_Ville.set_file_location("Ressource_Text/txt_FinNucléaire_PhotoCodeNucleaire_AlreadyDone.txt");
+	Centre_Ville.set_image_location("Ressource_Images/img_CodeNucléaire.txt");
 
 
 
 	Location Musee;
 
 	Musee.set_Name("Musee");
+	Musee.Add_Event(&Photo_Code_Nucleaire);
 	Musee.set_Identification_ID(7);
 	Musee.Add_Reacheable_Location(6);	
 	Musee.Add_Reacheable_Location(12);
 	Musee.Add_Reacheable_Location(13);
+	Musee.set_file_location("Ressource_Text/txt_FinNucléaire_PhotoCodeNucleaire_AlreadyDone.txt");
+	Musee.set_image_location("Ressource_Images/img_CodeNucléaire.txt");
 
 
 
@@ -495,12 +515,16 @@ int main()
 	Exposition_de_Fromage.set_Name("Exposition_de_Fromage");
 	Exposition_de_Fromage.set_Identification_ID(12);
 	Exposition_de_Fromage.Add_Reacheable_Location(7);
+	Exposition_de_Fromage.set_file_location("Ressource_Text/txt_FinNucléaire_PhotoCodeNucleaire_AlreadyDone.txt");
+	Exposition_de_Fromage.set_image_location("Ressource_Images/img_CodeNucléaire.txt");
 
 	Location Exposition_de_la_Vielle_Guerre;
 
 	Exposition_de_la_Vielle_Guerre.set_Name("Exposition_de_la_Vielle_Guerre");
 	Exposition_de_la_Vielle_Guerre.set_Identification_ID(13);
 	Exposition_de_la_Vielle_Guerre.Add_Reacheable_Location(7);
+	Exposition_de_la_Vielle_Guerre.set_file_location("Ressource_Text/txt_FinNucléaire_PhotoCodeNucleaire_AlreadyDone.txt");
+	Exposition_de_la_Vielle_Guerre.set_image_location("Ressource_Images/img_CodeNucléaire.txt");
 
 
 
@@ -509,6 +533,8 @@ int main()
 	Aire_de_jeu_de_Lancement.set_Name("Aire_de_jeu_de_Lancement");
 	Aire_de_jeu_de_Lancement.set_Identification_ID(8);
 	Aire_de_jeu_de_Lancement.Add_Reacheable_Location(9);
+	Aire_de_jeu_de_Lancement.set_file_location("Ressource_Text/txt_FinNucléaire_PhotoCodeNucleaire_AlreadyDone.txt");
+	Aire_de_jeu_de_Lancement.set_image_location("Ressource_Images/img_CodeNucléaire.txt");
 
 
 	Location Park;
@@ -517,6 +543,8 @@ int main()
 	Park.set_Identification_ID(9);
 	Park.Add_Reacheable_Location(6);
 	Park.Add_Reacheable_Location(8);
+	Park.set_file_location("Ressource_Text/txt_FinNucléaire_PhotoCodeNucleaire_AlreadyDone.txt");
+	Park.set_image_location("Ressource_Images/img_CodeNucléaire.txt");
 
 
 
@@ -526,6 +554,8 @@ int main()
 	Le_Grand_Purificateur.set_Name("Le_Grand_Purificateur");
 	Le_Grand_Purificateur.set_Identification_ID(10);
 	Le_Grand_Purificateur.Add_Reacheable_Location(6);
+	Le_Grand_Purificateur.set_file_location("Ressource_Text/txt_FinNucléaire_PhotoCodeNucleaire_AlreadyDone.txt");
+	Le_Grand_Purificateur.set_image_location("Ressource_Images/img_CodeNucléaire.txt");
 
 
 
@@ -535,6 +565,8 @@ int main()
 	Metro.set_Identification_ID(11);
 	Metro.Add_Reacheable_Location(6);
 	Metro.Add_Reacheable_Location(14);
+	Metro.set_file_location("Ressource_Text/txt_FinNucléaire_PhotoCodeNucleaire_AlreadyDone.txt");
+	Metro.set_image_location("Ressource_Images/img_CodeNucléaire.txt");
 
 
 	Location Systeme_de_Ventilation_du_Metro;
@@ -542,6 +574,8 @@ int main()
 	Systeme_de_Ventilation_du_Metro.set_Name("Systeme_de_Ventilation_du_Metro");
 	Systeme_de_Ventilation_du_Metro.set_Identification_ID(14);
 	Systeme_de_Ventilation_du_Metro.Add_Reacheable_Location(11);
+	Systeme_de_Ventilation_du_Metro.set_file_location("Ressource_Text/txt_FinNucléaire_PhotoCodeNucleaire_AlreadyDone.txt");
+	Systeme_de_Ventilation_du_Metro.set_image_location("Ressource_Images/img_CodeNucléaire.txt");
 
 
 	Location Antiquaire;
@@ -549,6 +583,8 @@ int main()
 	Antiquaire.set_Name("Antiquaire");
 	Antiquaire.set_Identification_ID(16);
 	Antiquaire.Add_Reacheable_Location(6);
+	Antiquaire.set_file_location("Ressource_Text/txt_FinNucléaire_PhotoCodeNucleaire_AlreadyDone.txt");
+	Antiquaire.set_image_location("Ressource_Images/img_CodeNucléaire.txt");
 
 
 
